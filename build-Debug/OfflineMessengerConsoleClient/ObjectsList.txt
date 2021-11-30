@@ -1,0 +1,1 @@
+../build-Debug/OfflineMessengerConsoleClient/main.cpp.o ../build-Debug/OfflineMessengerConsoleClient/chat_client.cpp.o

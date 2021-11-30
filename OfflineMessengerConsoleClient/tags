@@ -1,0 +1,9 @@
+TCPScanner	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^class TCPScanner$/;"	class	line:12
+BUFFER_SIZE	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	static unsigned const int BUFFER_SIZE = 4096;$/;"	member	line:15	class:TCPScanner	access:private
+socket_descriptor	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	unsigned int socket_descriptor;$/;"	member	line:16	class:TCPScanner	access:private
+buffer	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	char* buffer = new char[BUFFER_SIZE];$/;"	member	line:17	class:TCPScanner	access:private
+TCPScanner	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	TCPScanner();$/;"	prototype	line:19	class:TCPScanner	access:public	signature:()
+~TCPScanner	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	~TCPScanner();$/;"	prototype	line:20	class:TCPScanner	access:public	signature:()
+Write	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	void Write(string message);$/;"	prototype	line:21	class:TCPScanner	access:public	signature:(string message)	returns:void 
+Read	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	string Read();$/;"	prototype	line:22	class:TCPScanner	access:public	signature:()	returns:string 
+set_socket_descriptor	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	void set_socket_descriptor(unsigned int socket_descriptor);$/;"	prototype	line:23	class:TCPScanner	access:public	signature:(unsigned int socket_descriptor)	returns:void 

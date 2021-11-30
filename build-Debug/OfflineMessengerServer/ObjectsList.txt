@@ -1,0 +1,1 @@
+../build-Debug/OfflineMessengerServer/chat_server.cpp.o ../build-Debug/OfflineMessengerServer/main.cpp.o
