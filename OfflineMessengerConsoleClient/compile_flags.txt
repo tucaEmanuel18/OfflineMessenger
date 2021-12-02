@@ -1,2 +1,4 @@
 -I/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient
+-I/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/command
 -I/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/TCPUtils
+-std=c++11

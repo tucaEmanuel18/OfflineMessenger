@@ -1,9 +1,14 @@
-TCPScanner	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^class TCPScanner$/;"	class	line:12
-BUFFER_SIZE	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	static unsigned const int BUFFER_SIZE = 4096;$/;"	member	line:15	class:TCPScanner	access:private
-socket_descriptor	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	unsigned int socket_descriptor;$/;"	member	line:16	class:TCPScanner	access:private
-buffer	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	char* buffer = new char[BUFFER_SIZE];$/;"	member	line:17	class:TCPScanner	access:private
-TCPScanner	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	TCPScanner();$/;"	prototype	line:19	class:TCPScanner	access:public	signature:()
-~TCPScanner	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	~TCPScanner();$/;"	prototype	line:20	class:TCPScanner	access:public	signature:()
-Write	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	void Write(string message);$/;"	prototype	line:21	class:TCPScanner	access:public	signature:(string message)	returns:void 
-Read	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	string Read();$/;"	prototype	line:22	class:TCPScanner	access:public	signature:()	returns:string 
-set_socket_descriptor	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/TCPScanner.h	/^	void set_socket_descriptor(unsigned int socket_descriptor);$/;"	prototype	line:23	class:TCPScanner	access:public	signature:(unsigned int socket_descriptor)	returns:void 
+ChatClient	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^ChatClient::ChatClient(const char* address, unsigned int port)$/;"	function	line:3	class:ChatClient	signature:(const char* address, unsigned int port)	returns:ChatClient :: 
+~ChatClient	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^ChatClient::~ChatClient()$/;"	function	line:10	class:ChatClient	signature:()	returns:ChatClient :: 
+run	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^void ChatClient::run(){$/;"	function	line:14	class:ChatClient	signature:()	returns:void ChatClient :: 
+set_socket_descriptor	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^	scanner.set_socket_descriptor(socket_descriptor);$/;"	prototype	line:32	signature:(socket_descriptor)	returns:scanner 
+handle_connection	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^void ChatClient::handle_connection(){$/;"	function	line:36	class:ChatClient	signature:()	returns:void ChatClient :: 
+command	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^		char command[BUFFER_SIZE];$/;"	local	line:37
+message	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^		char message[BUFFER_SIZE];$/;"	local	line:38
+quit	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^		bool quit = false;$/;"	local	line:39
+Write	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^			scanner.Write(message);$/;"	prototype	line:59	signature:(message)	returns:scanner 
+received_message	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^				string received_message = scanner.Read();$/;"	local	line:67	type:string
+compute_command_message	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^bool ChatClient::compute_command_message(char* command, char* message){$/;"	function	line:75	class:ChatClient	signature:(char* command, char* message)	returns:bool ChatClient :: 
+json_message	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^	json json_message;$/;"	local	line:77	type:json
+username	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^		char username[BUFFER_SIZE];$/;"	local	line:80
+password	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^		char password[BUFFER_SIZE];$/;"	local	line:81

@@ -12,8 +12,6 @@ ChatServer::~ChatServer()
 {
 }
 
-TCPScanner ChatServer::scanner = TCPScanner();
-
 
 void ChatServer::start()
 {
@@ -59,7 +57,6 @@ void ChatServer::start()
 		} 
             
         printf("[Server] Client with fd %d was connected\n", client);
-        this->scanner.set_socket_descriptor(client);
         // create a new thread for this new client
 		new thread(handle_connection, client);
 
@@ -67,23 +64,49 @@ void ChatServer::start()
 }
 
 void ChatServer::handle_connection(int client){
+	TCPScanner scanner = TCPScanner();
+	scanner.set_socket_descriptor(client);
     string prefix = "[Server -> Client " + to_string(client) + "]";
-
-    while(1){
-        printf("%s Waiting the message ... \n", prefix.c_str());
+	bool quit = false;
+	
+    while(!quit){
+        printf("%s Waiting a command from client ... \n", prefix.c_str());
         fflush(stdout);
-
-        string msg = scanner.Read();
-        printf("%s The received message: %s\n", prefix.c_str(), msg.c_str());
-        if(msg.compare("quit") == 0){
-            // close the connection
-            close(client);
-            break;
-        }
-
-        //prepare the response message
-        string msg_rasp = "Hello " + msg;
-        scanner.Write(msg_rasp);
-        printf("%s The following message was send: %s\n", prefix.c_str(), msg_rasp.c_str());
+		
+		//Read comand from client
+        string command_request;
+		try{
+			command_request = scanner.Read();
+		}catch(std::ios_base::failure const& e){
+			printf("%s Error at Read() - %s\n", prefix.c_str(), e.what());
+			break;
+		}
+		
+        printf("%s The received command: %s\n", prefix.c_str(), command_request.c_str());
+		
+		// Process request
+		json json_command = json::parse(command_request);
+		json response;
+		
+		if(json_command.at("command").get<std::string>().compare("quit") == 0){
+			quit = true;
+			response = {
+				{"status", 200},
+				{"message", "Server will close this connection!"}
+			};
+		}else{
+			CommandProcessor command_processor = CommandProcessor();
+			response = command_processor.process(json_command);
+		}
+		
+        //Sending the response
+        try{
+			scanner.Write(response.dump());
+			printf("%s The following message was send: %s\n", prefix.c_str(), response.dump().c_str());
+		}catch(std::ios_base::failure const& e){
+			printf("%s Error at Write() - %s\n", prefix.c_str(), e.what());
+			break;
+		}
     }
+	close(client);
 }

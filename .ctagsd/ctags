@@ -1,0 +1,18 @@
+
+
+
+
+
+
+ChatClient	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^ChatClient::ChatClient(const char* address, unsigned int port)$/;"	function	line:3	class:ChatClient	signature:(const char* address, unsigned int port)	returns:ChatClient :: 
+~ChatClient	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^ChatClient::~ChatClient()$/;"	function	line:10	class:ChatClient	signature:()	returns:ChatClient :: 
+run	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^void ChatClient::run(){$/;"	function	line:14	class:ChatClient	signature:()	returns:void ChatClient :: 
+handle_connection	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^void ChatClient::handle_connection(){$/;"	function	line:36	class:ChatClient	signature:()	returns:void ChatClient :: 
+prepare_json	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerConsoleClient/chat_client.cpp	/^string ChatClient::prepare_json(string command){$/;"	function	line:80	class:ChatClient	signature:(string command)	returns:string ChatClient :: 
+
+
+
+
+
+
+

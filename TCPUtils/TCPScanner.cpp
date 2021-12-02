@@ -9,21 +9,18 @@ TCPScanner::TCPScanner()
 
 TCPScanner::~TCPScanner()
 {
-	delete[] buffer;
 }
 
 
 void TCPScanner::Write(string message){
 	unsigned int length = message.size();
-
+	
 	if(write(socket_descriptor, &length, sizeof(unsigned int)) <= 0){
-		printf("Error at writing message length to descriptor %d\n", socket_descriptor);
-		throw std::ios_base::failure("");
+		throw(std::ios_base::failure(strerror(errno)));
 	}
 	
 	if(write(socket_descriptor, message.c_str(), message.size()) <= 0){
-		printf("Error at writing message to descriptor %d\n", socket_descriptor);
-		throw std::ios_base::failure("");
+		throw(std::ios_base::failure(strerror(errno)));
 	}
 }
 
@@ -33,8 +30,7 @@ string TCPScanner::Read(){
 	unsigned int length = 0;
 
 	if(read(socket_descriptor, &length, sizeof(unsigned int)) <= 0){
-		printf("Error at reading message length from descriptor %d\n", socket_descriptor);
-		throw std::ios_base::failure("");
+		throw(std::ios_base::failure(strerror(errno)));
 	}
 
 	string message = "";
@@ -42,8 +38,7 @@ string TCPScanner::Read(){
 	while(read_bytes < length){
 		int current_bytes = read(socket_descriptor, buffer, min(BUFFER_SIZE - 1, length - read_bytes));
 		if(current_bytes <= 0){
-			printf("Error at reading message from descriptor %d\n", socket_descriptor);
-			throw std::ios_base::failure("");
+			throw(std::ios_base::failure(strerror(errno)));
 		}
 		buffer[current_bytes] = '\0';
 

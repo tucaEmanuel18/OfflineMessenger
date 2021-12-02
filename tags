@@ -1,0 +1,5 @@
+ChatServer	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/chat_server.cpp	/^ChatServer::ChatServer(unsigned int port, unsigned int backlog = 5)$/;"	function	line:5	class:ChatServer	signature:(unsigned int port, unsigned int backlog = 5)	returns:ChatServer :: 
+~ChatServer	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/chat_server.cpp	/^ChatServer::~ChatServer()$/;"	function	line:11	class:ChatServer	signature:()	returns:ChatServer :: 
+command_router	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/chat_server.cpp	/^CommandRouter ChatServer::command_router = CommandRouter();$/;"	member	line:15	class:ChatServer
+start	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/chat_server.cpp	/^void ChatServer::start()$/;"	function	line:18	class:ChatServer	signature:()	returns:void ChatServer :: 
+handle_connection	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/chat_server.cpp	/^void ChatServer::handle_connection(int client){$/;"	function	line:68	class:ChatServer	signature:(int client)	returns:void ChatServer :: 
