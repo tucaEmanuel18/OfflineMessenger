@@ -13,6 +13,7 @@ ChatServer::~ChatServer()
 }
 
 TCPScanner ChatServer::scanner = TCPScanner();
+CommandRouter ChatServer::command_router = CommandRouter();
 
 
 void ChatServer::start()
@@ -70,20 +71,41 @@ void ChatServer::handle_connection(int client){
     string prefix = "[Server -> Client " + to_string(client) + "]";
 
     while(1){
-        printf("%s Waiting the message ... \n", prefix.c_str());
+        printf("%s Waiting a command from client ... \n", prefix.c_str());
         fflush(stdout);
-
-        string msg = scanner.Read();
-        printf("%s The received message: %s\n", prefix.c_str(), msg.c_str());
-        if(msg.compare("quit") == 0){
-            // close the connection
-            close(client);
-            break;
-        }
-
-        //prepare the response message
-        string msg_rasp = "Hello " + msg;
-        scanner.Write(msg_rasp);
-        printf("%s The following message was send: %s\n", prefix.c_str(), msg_rasp.c_str());
+		//Read comand from client
+        string command_request;
+		try{
+			command_request = scanner.Read();
+		}catch(std::ios_base::failure const& e){
+			printf("%s Error at Read() - %s\n", prefix.c_str(), e.what());
+			break;
+		}
+		
+        printf("%s The received command: %s\n", prefix.c_str(), command_request.c_str());
+		
+		// Process request
+		json json_command = json::parse(command_request);
+		printf("json_command = %s\n", json_command.dump().c_str());
+		ICommand* command = command_router.route(json_command);
+		
+		json response;
+		if(command == nullptr){
+			response = {
+				{"status", 405},
+				{"message", "Command not allowed!"}
+			};
+		}else{
+			response = command->execute();
+		}
+		
+        //Sending the response
+        try{
+			scanner.Write(response.dump());
+			printf("%s The following message was send: %s\n", prefix.c_str(), response.dump().c_str());
+		}catch(std::ios_base::failure const& e){
+			printf("%s Error at Write() - %s\n", prefix.c_str(), e.what());
+			break;
+		}
     }
 }

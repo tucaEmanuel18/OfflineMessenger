@@ -25,7 +25,7 @@ void ChatClient::run(){
 
     // connecting to the server
     if(connect(socket_descriptor, (struct sockaddr *) &client_socket, sizeof(struct sockaddr)) < 0){
-		printf("Error at connect()");
+		printf("Error at connect()\n");
 		exit(-1);
 	}
 	
@@ -34,31 +34,59 @@ void ChatClient::run(){
 }
 
 void ChatClient::handle_connection(){
-		char message[BUFFER_SIZE];
 		bool quit = false;
+		string command;
 		while (!quit){
-			// getting the client message
-			bzero(message, BUFFER_SIZE);
 			
+			// getting the client command
 			printf("[Client] Get a command: ");
 			fflush(stdout);
-
-			int size = read(0, message, BUFFER_SIZE);
-			message[size - 1] = '\0';
+			getline (cin, command);
+			
+			string message = prepare_json(command);
+			if(message.empty()){
+				continue;
+			}
 			
 			//Sending the message to the server
-			printf("[Client] I will send to the server the following message: %s\n", message);
-			scanner.Write(message);
-
-			if(strcmp(message, "quit") == 0){
+			printf("[LOG] I'm sending to the server the following message = %s\n", message.c_str());
+			try{
+				scanner.Write(message);
+			}catch(ios_base::failure const& e){
+					printf("[Client Error] %s\n", e.what());
+					break;
+			}
+			
+			if(strcmp(command.c_str(), "quit") == 0){
 				// closing the connection
 				close(socket_descriptor);
 				quit = true;
 			}else{
 				// Receiving the message from the server
-				string received_message = scanner.Read();
+				string received_message;
+				try{
+					received_message = scanner.Read();
+				}catch(ios_base::failure const& e){
+					printf("[Client Error] %s\n", e.what());
+					break;
+				}
 				// printing the received message
-				printf("[Client] The following message was received: %s\n", received_message.c_str());
+				printf("[LOG] The following message was received: %s\n", received_message.c_str());
 			}
 		}
 	}
+
+
+string ChatClient::prepare_json(string command){
+	json json_message;
+	json_message["command"] = command.c_str();
+	
+	if(command.compare("register") == 0){
+		json_message["username"] = "Ana";
+		json_message["password"] = "pass";
+	}else{
+		printf("This command is unknown...\n");
+		return "";
+	}
+	return json_message.dump();
+}

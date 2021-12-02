@@ -12,6 +12,9 @@
 #include <thread>
 #include <pthread.h>
 #include <TCPScanner.h>
+#include <nlohmann/json.hpp>
+#include "CommandRouter.h"
+#include "ICommand.h"
 
 class ChatServer
 {
@@ -28,6 +31,7 @@ protected:
 public:
 	ChatServer(unsigned int port, unsigned int backlog);
 	~ChatServer();
+	static CommandRouter command_router;
 	static TCPScanner scanner;
 	static void handle_connection(int client_file_descriptor);
 	void start();
