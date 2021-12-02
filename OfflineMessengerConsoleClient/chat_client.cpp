@@ -84,6 +84,8 @@ string ChatClient::prepare_json(string command){
 	if(command.compare("register") == 0){
 		json_message["username"] = "Ana";
 		json_message["password"] = "pass";
+	}else if(command.compare("log") == 0){
+		json_message["username"] = "Ana";
 	}else{
 		printf("This command is unknown...\n");
 		return "";

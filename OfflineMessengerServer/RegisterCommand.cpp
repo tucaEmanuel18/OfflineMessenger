@@ -13,7 +13,7 @@ RegisterCommand::~RegisterCommand()
 json RegisterCommand::execute(){
 	printf("Register user with username: %s | password = %s\n", this->username.c_str(), this->password.c_str());
 	json response = {
-			{"status", 200},
+			{"status", 201},
 			{"message", "User was registered"}
 		};
 	return response;

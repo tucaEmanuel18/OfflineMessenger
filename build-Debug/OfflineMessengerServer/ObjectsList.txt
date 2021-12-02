@@ -1,1 +1,1 @@
-../build-Debug/OfflineMessengerServer/CommandRouter.cpp.o ../build-Debug/OfflineMessengerServer/RegisterCommand.cpp.o ../build-Debug/OfflineMessengerServer/main.cpp.o ../build-Debug/OfflineMessengerServer/chat_server.cpp.o
+../build-Debug/OfflineMessengerServer/CommandProcessor.cpp.o ../build-Debug/OfflineMessengerServer/RegisterCommand.cpp.o ../build-Debug/OfflineMessengerServer/main.cpp.o ../build-Debug/OfflineMessengerServer/chat_server.cpp.o
