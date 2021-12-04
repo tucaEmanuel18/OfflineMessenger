@@ -1,7 +1,8 @@
 #include "CommandProcessor.h"
 
-CommandProcessor::CommandProcessor()
+CommandProcessor::CommandProcessor(sqlite3* db)
 {
+	this->db = db;
 }
 
 CommandProcessor::~CommandProcessor()
@@ -13,8 +14,15 @@ json CommandProcessor::process(json command){
 	if(command.at("command").get<std::string>().compare("register") == 0){
 		
 		if(command.contains("username") && command.contains("password")){
-			RegisterCommand register_command(command.at("username"), command.at("password"));
-			response = register_command.execute();
+			try{
+				RegisterCommand register_command(db, command.at("username"), command.at("password"));
+				response = register_command.execute();
+			}catch(std::invalid_argument const& e){
+				response = {
+					{"status", 400},
+					{"message", e.what()}
+				};
+			}
 		}else{
 			response = {
 					{"status", 400},
@@ -25,7 +33,7 @@ json CommandProcessor::process(json command){
 	}else if(command.at("command").get<std::string>().compare("log") == 0){
 		
 		if(command.contains("username") && command.contains("password")){
-			RegisterCommand register_command(command.at("username"), command.at("password"));
+			RegisterCommand register_command(db, command.at("username"), command.at("password"));
 			response = register_command.execute();
 		}else{
 			response = {

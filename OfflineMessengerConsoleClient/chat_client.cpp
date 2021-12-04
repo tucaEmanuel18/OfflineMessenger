@@ -82,8 +82,21 @@ string ChatClient::prepare_json(string command){
 	json_message["command"] = command.c_str();
 	
 	if(command.compare("register") == 0){
-		json_message["username"] = "Ana";
-		json_message["password"] = "pass";
+		string username;
+		string password; 
+		
+		printf("[Client] Get username: ");
+		fflush(stdout);
+		getline (cin, username);
+		
+		printf("[Client] Get password: ");
+		fflush(stdout);
+		getline (cin, password);
+		printf("username = %s\n", username.c_str());
+		printf("password = %s\n", password.c_str());
+		
+		json_message["username"] = username.c_str();
+		json_message["password"] = password.c_str();
 	}else if(command.compare("log") == 0){
 		json_message["username"] = "Ana";
 	}else{

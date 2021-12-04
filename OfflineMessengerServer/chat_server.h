@@ -13,8 +13,10 @@
 #include <pthread.h>
 #include <TCPScanner.h>
 #include <nlohmann/json.hpp>
+#include <sqlite3.h>
 #include "ICommand.h"
 #include "CommandProcessor.h"
+#include "DbConnectionFactory.h"
 
 class ChatServer
 {
