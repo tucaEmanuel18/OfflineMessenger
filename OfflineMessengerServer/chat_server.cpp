@@ -66,7 +66,7 @@ void ChatServer::start()
 void ChatServer::handle_connection(int client){
 	TCPScanner scanner = TCPScanner();
 	scanner.set_socket_descriptor(client);
-	sqlite3 *db = DbConnectionFactory::get_connection();
+	sqlite3 *db = DatabaseManager::get_connection();
 	CommandProcessor command_processor = CommandProcessor(db);
 	
 	
@@ -94,7 +94,7 @@ void ChatServer::handle_connection(int client){
 		
 		if(json_command.at("command").get<std::string>().compare("quit") == 0){
 			quit = true;
-			DbConnectionFactory::close_connection(db);
+			DatabaseManager::close_connection(db);
 			response = {
 				{"status", 200},
 				{"message", "Server will close this connection!"}

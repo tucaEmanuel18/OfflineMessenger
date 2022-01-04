@@ -34,7 +34,7 @@ json RegisterCommand::execute(){
 	string insert_user_sql = ss.str();
 	
 	// execute querry
-	int result = DbConnectionFactory::execute_ddl(db, insert_user_sql.c_str());
+	int result = DatabaseManager::execute_ddl(db, insert_user_sql.c_str());
 	
 	// prepare response
 	if(result == SQLITE_OK){

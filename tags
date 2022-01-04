@@ -1,8 +1,9 @@
-RegisterCommand	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/RegisterCommand.cpp	/^RegisterCommand::RegisterCommand(sqlite3* db, string username, string password)$/;"	function	line:3	class:RegisterCommand	signature:(sqlite3* db, string username, string password)	returns:RegisterCommand :: 
-~RegisterCommand	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/RegisterCommand.cpp	/^RegisterCommand::~RegisterCommand()$/;"	function	line:22	class:RegisterCommand	signature:()	returns:RegisterCommand :: 
-execute	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/RegisterCommand.cpp	/^json RegisterCommand::execute(){$/;"	function	line:26	class:RegisterCommand	signature:()	returns:json RegisterCommand :: 
-response	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/RegisterCommand.cpp	/^	json response;$/;"	local	line:28	type:json
-ss	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/RegisterCommand.cpp	/^	std::stringstream ss;$/;"	local	line:31	type:std::stringstream
-password	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/RegisterCommand.cpp	/^		<<"VALUES('" << username << "', '" << password << "', 0);";$/;"	local	line:33	type:ssusername
-insert_user_sql	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/RegisterCommand.cpp	/^	string insert_user_sql = ss.str();$/;"	local	line:34	type:string
-result	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/RegisterCommand.cpp	/^	int result = DbConnectionFactory::execute_ddl(db, insert_user_sql.c_str());$/;"	local	line:37
+LogInCommand	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^LogInCommand::LogInCommand(sqlite3* db, string username, string password)$/;"	function	line:3	class:LogInCommand	signature:(sqlite3* db, string username, string password)	returns:LogInCommand :: 
+~LogInCommand	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^LogInCommand::~LogInCommand()$/;"	function	line:19	class:LogInCommand	signature:()	returns:LogInCommand :: 
+execute	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^json LogInCommand::execute(){$/;"	function	line:23	class:LogInCommand	signature:()	returns:json LogInCommand :: 
+response	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^	json response;$/;"	local	line:25	type:json
+ss	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^	std::stringstream ss;$/;"	local	line:28	type:std::stringstream
+c_str	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^		<<"' AND password = '" << password.c_str() << "';";$/;"	prototype	line:31	signature:()	returns:password 
+select_user_sql	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^	string select_user_sql = ss.str();$/;"	local	line:33	type:string
+data	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^	json data = DatabaseManager::execute_dql(db, select_user_sql.c_str());$/;"	local	line:36	type:json
+result	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/LogInCommand.cpp	/^	int result = data["result_code"];$/;"	local	line:38

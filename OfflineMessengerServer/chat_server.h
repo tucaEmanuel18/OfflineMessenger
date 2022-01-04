@@ -16,7 +16,7 @@
 #include <sqlite3.h>
 #include "ICommand.h"
 #include "CommandProcessor.h"
-#include "DbConnectionFactory.h"
+#include "DatabaseManager.h"
 
 class ChatServer
 {

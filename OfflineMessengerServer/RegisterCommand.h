@@ -1,7 +1,7 @@
 #pragma once
 #include <ICommand.h>
 #include <string>
-#include "DbConnectionFactory.h"
+#include "DatabaseManager.h"
 #include <sqlite3.h>
 #include <sstream>      
 

@@ -33,8 +33,8 @@ json CommandProcessor::process(json command){
 	}else if(command.at("command").get<std::string>().compare("log") == 0){
 		
 		if(command.contains("username") && command.contains("password")){
-			RegisterCommand register_command(db, command.at("username"), command.at("password"));
-			response = register_command.execute();
+			LogInCommand login_command(db, command.at("username"), command.at("password"));
+			response = login_command.execute();
 		}else{
 			response = {
 					{"status", 400},

@@ -16,6 +16,7 @@ private:
 	unsigned int socket_descriptor;
 	char buffer[BUFFER_SIZE];
 public:
+	TCPScanner(unsigned int socket_descriptor);
 	TCPScanner();
 	~TCPScanner();
 	void Write(string message);

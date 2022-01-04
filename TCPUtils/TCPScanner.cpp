@@ -7,6 +7,11 @@ TCPScanner::TCPScanner()
 	this->socket_descriptor = 0;
 }
 
+TCPScanner::TCPScanner(unsigned int socket_descriptor)
+{
+	this->socket_descriptor = socket_descriptor;
+}
+
 TCPScanner::~TCPScanner()
 {
 }
