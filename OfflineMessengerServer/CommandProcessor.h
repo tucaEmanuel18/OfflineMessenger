@@ -2,6 +2,7 @@
 #include <nlohmann/json.hpp>
 #include <RegisterCommand.h>
 #include <LogInCommand.h>
+#include <CreateConversationCommand.h>
 #include <sqlite3.h>
 
 using json = nlohmann::json;

@@ -21,7 +21,7 @@ public:
 	~DatabaseManager();
 	static sqlite3* get_connection();
 	static void close_connection(sqlite3* db_conn);
-	static int execute_ddl(sqlite3* db_conn, const char* sql);
+	static json execute_ddl(sqlite3* db_conn, const char* sql);
 	static json execute_dql(sqlite3* db_conn, const char* sql);
 };
 

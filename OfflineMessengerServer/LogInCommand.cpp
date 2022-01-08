@@ -29,7 +29,6 @@ json LogInCommand::execute(){
 	ss << "SELECT * FROM USERS "
 		<<"WHERE username = '" << username.c_str()
 		<<"' AND password = '" << password.c_str() << "';";
-	printf("Querry= %s\n", ss.str().c_str());
 	string select_user_sql = ss.str();
 	
 	// execute quterry

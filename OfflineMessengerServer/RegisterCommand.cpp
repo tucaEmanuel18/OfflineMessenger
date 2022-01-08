@@ -34,8 +34,8 @@ json RegisterCommand::execute(){
 	string insert_user_sql = ss.str();
 	
 	// execute querry
-	int result = DatabaseManager::execute_ddl(db, insert_user_sql.c_str());
-	
+	json data = DatabaseManager::execute_ddl(db, insert_user_sql.c_str());
+	int result = data["result"];
 	// prepare response
 	if(result == SQLITE_OK){
 		response = {
@@ -50,7 +50,8 @@ json RegisterCommand::execute(){
 	}else{
 		response = {
 			{"status", 500},
-			{"message", "[Database Error] - Something went wrong when trying to create a new user!"}
+			{"message", "[Database Error] - Something went wrong when trying to create a new user!"},
+			{"db_message", data["error_message"]}
 		};
 	}
 	

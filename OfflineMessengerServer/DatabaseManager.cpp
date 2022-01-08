@@ -37,31 +37,22 @@ int DatabaseManager::ddl_callback(void *NotUsed, int argc, char **argv, char **a
 	return 0;
 }
 
-int DatabaseManager::execute_ddl(sqlite3* db_conn, const char* sql){
+json DatabaseManager::execute_ddl(sqlite3* db_conn, const char* sql){
 	char* err_msg = 0;
+	json response;
 	int rc = sqlite3_exec(db_conn, sql, ddl_callback, 0, &err_msg);
+	response["result_code"] = rc;
+	
 	if(rc != SQLITE_OK){
 		fprintf(stderr, "SQL error: %s\n", err_msg);
+		response["error_message"] = err_msg;
 		sqlite3_free(err_msg);
 	}else{
 		fprintf(stdout, "DDL query successfully run\n");
 	}
-	
-	return rc;
+	printf("Json = %s\n", response.dump().c_str());
+	return response;
 }
-
-//int DatabaseManager::dql_callback(void *data, int argc, char **argv, char **azColName){
-//	int i;
-//   fprintf(stderr, "%s: ", (const char*)data);
-//   
-//   for(i = 0; i<argc; i++){
-//      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-//   }
-//   
-//   
-//   printf("\n");
-//   return 0;
-//}
 
 int DatabaseManager::dql_callback(void *ptr, int argc, char **argv, char **azColName){
 	int i;
@@ -86,7 +77,7 @@ json DatabaseManager::execute_dql(sqlite3* db_conn, const char* sql){
 	
 	if(rc != SQLITE_OK){
 		fprintf(stderr, "SQL error: %s\n", err_msg);
-		response["Error message"] = err_msg;
+		response["error_message"] = err_msg;
 		sqlite3_free(err_msg);
 	}else{
 		fprintf(stdout, "DQL query successfully run\n");
@@ -94,7 +85,6 @@ json DatabaseManager::execute_dql(sqlite3* db_conn, const char* sql){
 		for(auto &row : table){
 			json j_row;
 			for (auto &entity : row){
-				printf("%s -> %s", entity.first.c_str(), entity.second.c_str());
 				j_row[entity.first.c_str()] = entity.second.c_str();
 			}
 			printf("\n");
@@ -112,4 +102,14 @@ void DatabaseManager::create_database_structure(sqlite3* db_conn){
 		"password TEXT NOT NULL, "
 		"connected INTEGER NOT NULL);";
 	execute_ddl(db_conn, user_table_sql);
+	
+	
+	const char* rooms_table_sql = "CREATE TABLE IF NOT EXISTS ROOMS("
+		"id_room INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"participant_1 INTEGER NOT NULL, "
+		"participant_2 INTEGER NOT NULL CHECK(participant_2 != participant_1), "
+		"FOREIGN KEY(participant_1) REFERENCES users(id_user), "
+		"FOREIGN KEY(participant_2) REFERENCES users(id_user)"
+		");";
+	execute_ddl(db_conn, rooms_table_sql);
 }

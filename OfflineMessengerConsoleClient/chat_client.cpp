@@ -109,6 +109,21 @@ string ChatClient::prepare_json(string command){
 		
 		json_message["username"] = username.c_str();
 		json_message["password"] = password.c_str();
+		
+	}else if(command.compare("new_conv") == 0){
+		string auth;
+		string friend_username; 
+		
+		printf("[Client] Get your id: ");
+		fflush(stdout);
+		getline (cin, auth);
+		
+		printf("[Client] Get friend_username: ");
+		fflush(stdout);
+		getline (cin, friend_username);
+		
+		json_message["auth"] = auth.c_str();
+		json_message["friend_username"] = friend_username.c_str();
 	}else{
 		printf("This command is unknown...\n");
 		return "";
