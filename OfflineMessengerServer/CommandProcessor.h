@@ -3,6 +3,9 @@
 #include <RegisterCommand.h>
 #include <LogInCommand.h>
 #include <CreateConversationCommand.h>
+#include <GetAllConversationsCommand.h>
+#include <CreateMessageCommand.h>
+#include <GetMessagesCommand.h>
 #include <sqlite3.h>
 
 using json = nlohmann::json;

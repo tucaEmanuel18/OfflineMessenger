@@ -35,7 +35,7 @@ json RegisterCommand::execute(){
 	
 	// execute querry
 	json data = DatabaseManager::execute_ddl(db, insert_user_sql.c_str());
-	int result = data["result"];
+	int result = data["result_code"];
 	// prepare response
 	if(result == SQLITE_OK){
 		response = {

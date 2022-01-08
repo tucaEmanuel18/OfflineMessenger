@@ -40,7 +40,12 @@ int DatabaseManager::ddl_callback(void *NotUsed, int argc, char **argv, char **a
 json DatabaseManager::execute_ddl(sqlite3* db_conn, const char* sql){
 	char* err_msg = 0;
 	json response;
-	int rc = sqlite3_exec(db_conn, sql, ddl_callback, 0, &err_msg);
+	int rc;
+	do{
+		rc = sqlite3_exec(db_conn, sql, ddl_callback, 0, &err_msg);
+		printf("DQL - Check for BUSY\n");
+	}while(rc == SQLITE_BUSY);
+	
 	response["result_code"] = rc;
 	
 	if(rc != SQLITE_OK){
@@ -50,7 +55,6 @@ json DatabaseManager::execute_ddl(sqlite3* db_conn, const char* sql){
 	}else{
 		fprintf(stdout, "DDL query successfully run\n");
 	}
-	printf("Json = %s\n", response.dump().c_str());
 	return response;
 }
 
@@ -72,7 +76,11 @@ json DatabaseManager::execute_dql(sqlite3* db_conn, const char* sql){
 	char* err_msg = 0;
 	table_type table;
 	json response;
-	int rc = sqlite3_exec(db_conn, sql, dql_callback, &table, &err_msg);
+	int rc;
+	do{
+		rc = sqlite3_exec(db_conn, sql, dql_callback, &table, &err_msg);
+		printf("DQL - Check for BUSY\n");
+	}while(rc == SQLITE_BUSY);
 	response["result_code"] = rc;
 	
 	if(rc != SQLITE_OK){
@@ -91,7 +99,6 @@ json DatabaseManager::execute_dql(sqlite3* db_conn, const char* sql){
 			response["data"].push_back(j_row);
 		}
 	}
-	printf("Json = %s\n", response.dump().c_str());
 	return response;
 }
 
@@ -103,13 +110,27 @@ void DatabaseManager::create_database_structure(sqlite3* db_conn){
 		"connected INTEGER NOT NULL);";
 	execute_ddl(db_conn, user_table_sql);
 	
-	
 	const char* rooms_table_sql = "CREATE TABLE IF NOT EXISTS ROOMS("
-		"id_room INTEGER PRIMARY KEY AUTOINCREMENT, "
-		"participant_1 INTEGER NOT NULL, "
-		"participant_2 INTEGER NOT NULL CHECK(participant_2 != participant_1), "
-		"FOREIGN KEY(participant_1) REFERENCES users(id_user), "
-		"FOREIGN KEY(participant_2) REFERENCES users(id_user)"
-		");";
+	"id_room INTEGER PRIMARY KEY AUTOINCREMENT, "
+	"participant_1 INTEGER NOT NULL, "
+	"participant_2 INTEGER NOT NULL CHECK(participant_2 != participant_1), "
+	"FOREIGN KEY(participant_1) REFERENCES users(id_user), "
+	"FOREIGN KEY(participant_2) REFERENCES users(id_user)"
+	");";
 	execute_ddl(db_conn, rooms_table_sql);
+	
+	
+	const char* messages_table_sql = "CREATE TABLE IF NOT EXISTS MESSAGES("
+		"id_message INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"id_sender INTEGER NOT NULL, "
+		"id_room INTEGER NOT NULL, "
+		"reply_to INTEGER, "
+		"content TEXT NOT NULL, "
+		"FOREIGN KEY(id_sender) REFERENCES users(id_user), "
+		"FOREIGN KEY(id_room) REFERENCES rooms(id_room), "
+		"FOREIGN KEY(reply_to) REFERENCES messages(id_message)"
+		");";
+	execute_ddl(db_conn, messages_table_sql);
+	
+
 }

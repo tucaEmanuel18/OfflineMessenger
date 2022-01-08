@@ -110,7 +110,7 @@ string ChatClient::prepare_json(string command){
 		json_message["username"] = username.c_str();
 		json_message["password"] = password.c_str();
 		
-	}else if(command.compare("new_conv") == 0){
+	}else if(command.compare("create_conv") == 0){
 		string auth;
 		string friend_username; 
 		
@@ -124,6 +124,48 @@ string ChatClient::prepare_json(string command){
 		
 		json_message["auth"] = auth.c_str();
 		json_message["friend_username"] = friend_username.c_str();
+	}else if(command.compare("get_conv") == 0){
+		string auth;
+		
+		printf("[Client] Get your id: ");
+		fflush(stdout);
+		getline (cin, auth);
+		
+		json_message["auth"] = auth.c_str();
+	}else if(command.compare("create_msg") == 0){
+		string auth;
+		string id_room;
+		string content;
+		
+		printf("[Client] Get your id: ");
+		fflush(stdout);
+		getline (cin, auth);
+		
+		printf("[Client] Get id_room: ");
+		fflush(stdout);
+		getline (cin, id_room);
+		
+		printf("[Client] Get content ");
+		fflush(stdout);
+		getline (cin, content);
+		
+		json_message["auth"] = auth.c_str();
+		json_message["id_room"] = id_room.c_str();
+		json_message["content"] = content.c_str();
+	}else if(command.compare("get_msg") == 0){
+		string auth;
+		string id_room;
+		
+		printf("[Client] Get your id: ");
+		fflush(stdout);
+		getline (cin, auth);
+		
+		printf("[Client] Get id_room: ");
+		fflush(stdout);
+		getline (cin, id_room);
+		
+		json_message["auth"] = auth.c_str();
+		json_message["id_room"] = id_room.c_str();
 	}else{
 		printf("This command is unknown...\n");
 		return "";

@@ -1,0 +1,12 @@
+
+
+
+
+
+
+GetMessagesCommand	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/GetMessagesCommand.cpp	/^GetMessagesCommand::GetMessagesCommand(sqlite3* db, string auth, string id_room)$/;"	function	line:3	class:GetMessagesCommand	signature:(sqlite3* db, string auth, string id_room)	returns:GetMessagesCommand :: 
+~GetMessagesCommand	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/GetMessagesCommand.cpp	/^GetMessagesCommand::~GetMessagesCommand()$/;"	function	line:19	class:GetMessagesCommand	signature:()	returns:GetMessagesCommand :: 
+execute	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessengerServer/GetMessagesCommand.cpp	/^json GetMessagesCommand::execute(){$/;"	function	line:23	class:GetMessagesCommand	signature:()	returns:json GetMessagesCommand :: 
+
+
+
