@@ -35,8 +35,8 @@ public:
     QScrollArea *convArea;
     QWidget *scrollAreaWidgetContents;
     QVBoxLayout *verticalLayout_3;
-    QPushButton *pushButton;
     QSpacerItem *verticalSpacer;
+    QPushButton *pushButton_2;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents_2;
 
@@ -81,15 +81,10 @@ public:
         convArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 192, 496));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 192, 469));
         scrollAreaWidgetContents->setMinimumSize(QSize(192, 0));
         verticalLayout_3 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        pushButton = new QPushButton(scrollAreaWidgetContents);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-
-        verticalLayout_3->addWidget(pushButton);
-
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_3->addItem(verticalSpacer);
@@ -97,6 +92,11 @@ public:
         convArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_2->addWidget(convArea);
+
+        pushButton_2 = new QPushButton(asideWrapper);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+
+        verticalLayout_2->addWidget(pushButton_2);
 
 
         horizontalLayout->addWidget(asideWrapper);
@@ -133,7 +133,7 @@ public:
         asideWrapper->setTitle(QString());
         usernameLabel->setText(QApplication::translate("messenger_page", "User", nullptr));
         newConvBtn->setText(QApplication::translate("messenger_page", "New Conversation", nullptr));
-        pushButton->setText(QApplication::translate("messenger_page", "Friend username", nullptr));
+        pushButton_2->setText(QApplication::translate("messenger_page", "Refresh Conversations", nullptr));
     } // retranslateUi
 
 };

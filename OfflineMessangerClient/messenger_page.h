@@ -21,12 +21,17 @@ public:
     explicit messenger_page(QWidget *parent = nullptr, ServerConnection *server_connection = nullptr);
     ~messenger_page();
 
+private slots:
+    void on_pushButton_2_clicked();
+
 private:
     vector<Conversation> conversations;
+    vector<QPushButton*> conversation_widgets;
     User logged_user;
     ServerConnection *server_connection;
     Ui::messenger_page *ui;
     void conv_loop();
+    void refresh_conversations();
 };
 
 #endif // MESSENGER_PAGE_H

@@ -25,12 +25,20 @@ json CommandBuilder::_log(string username, string password){
 }
 
 json CommandBuilder::_get_conv(string auth){
-    printf("CommandBuilder get_conv!\n");
-    fflush(stdout);
     json json_message;
     json_message = {
             {"command", "get_conv"},
             {"auth", auth.c_str()}
+    };
+    return json_message;
+}
+
+json CommandBuilder::_get_messeges(string auth, string id_room){
+    json json_message;
+    json_message = {
+            {"command", "get_msg"},
+            {"auth", auth.c_str()},
+            {"id_room", id_room.c_str()}
     };
     return json_message;
 }

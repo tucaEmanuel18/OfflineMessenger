@@ -14,6 +14,7 @@ SOURCES += \
     conversation.cpp \
     convthread.cpp \
     main.cpp \
+    message.cpp \
     messenger_page.cpp \
     serverconnection.cpp \
     tcpscanner.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     connect_page.h \
     conversation.h \
     convthread.h \
+    message.h \
     messenger_page.h \
     serverconnection.h \
     tcpscanner.h \

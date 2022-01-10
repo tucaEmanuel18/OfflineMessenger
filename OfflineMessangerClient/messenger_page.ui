@@ -105,7 +105,7 @@
               <x>0</x>
               <y>0</y>
               <width>192</width>
-              <height>496</height>
+              <height>469</height>
              </rect>
             </property>
             <property name="minimumSize">
@@ -115,13 +115,6 @@
              </size>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>Friend username</string>
-               </property>
-              </widget>
-             </item>
              <item>
               <spacer name="verticalSpacer">
                <property name="orientation">
@@ -137,6 +130,13 @@
              </item>
             </layout>
            </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Refresh Conversations</string>
+           </property>
           </widget>
          </item>
         </layout>
