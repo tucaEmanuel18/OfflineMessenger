@@ -33,7 +33,7 @@ json CommandBuilder::_get_conv(string auth){
     return json_message;
 }
 
-json CommandBuilder::_get_messeges(string auth, string id_room){
+json CommandBuilder::_get_messages(string auth, string id_room){
     json json_message;
     json_message = {
             {"command", "get_msg"},

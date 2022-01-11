@@ -84,6 +84,52 @@ json ServerConnection::_log(string username, string password){
     return response;
 }
 
-json ServerConnection::_get_conv(){
-    return this->send_request(command_builder._get_conv(this->me.auth).dump());
+vector<Conversation*> ServerConnection::_get_conv(){
+    json response = this->send_request(command_builder._get_conv(this->me.auth).dump());
+    if(response["status"] == 200){
+        vector<Conversation*> conversations;
+        json j_conversations = response["conversations"];
+        for(unsigned long i=0; i < j_conversations.size(); i++){
+            string id_room = remove_quotes(j_conversations.at(i).at("id_room").dump()).c_str();
+            string id_user = remove_quotes(j_conversations.at(i).at("id_user").dump()).c_str();
+            string username = remove_quotes(j_conversations.at(i).at("username").dump()).c_str();
+            string connected = remove_quotes(j_conversations.at(i).at("connected").dump()).c_str();
+            Conversation* new_conversation = new Conversation(id_room, id_user, username, connected);
+            conversations.push_back(new_conversation);
+        }
+        return conversations;
+    }
+}
+
+vector<Message*> ServerConnection::_get_messages(string id_room){
+    json response = this->send_request(command_builder._get_messages(this->me.auth, id_room).dump());
+    if(response["status"] == 200){
+        vector<Message*> messages;
+        json j_message = response["messages"];
+        for(unsigned long i=0; i < j_message.size(); i++){
+            string id_message = remove_quotes(j_message.at(i).at("id_message").dump()).c_str();
+            string id_sender = remove_quotes(j_message.at(i).at("id_sender").dump()).c_str();
+            string id_room = remove_quotes(j_message.at(i).at("id_room").dump()).c_str();
+            string reply_to = remove_quotes(j_message.at(i).at("reply_to").dump()).c_str();
+            string content = remove_quotes(j_message.at(i).at("content").dump()).c_str();
+            string reply_sender = remove_quotes(j_message.at(i).at("reply_sender").dump()).c_str();
+            string reply_content = remove_quotes(j_message.at(i).at("reply_content").dump()).c_str();
+            Message* message = new Message(id_message, id_sender, id_room, content, reply_to, reply_sender, reply_content);
+            messages.push_back(message);
+        }
+        return messages;
+    }else{
+        if(response["status"] >= 500){
+            throw std::domain_error(response["message"]);
+        }else {
+            throw std::invalid_argument(response["message"]);
+        }
+    }
+}
+
+
+
+string ServerConnection::remove_quotes(string quoted){
+    return quoted.substr(1, quoted.length() - 2);
+
 }

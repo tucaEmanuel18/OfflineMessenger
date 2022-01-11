@@ -29,11 +29,11 @@ void DatabaseManager::close_connection(sqlite3* db_conn){
 }
 
 int DatabaseManager::ddl_callback(void *NotUsed, int argc, char **argv, char **azColName){
-	int i;
-	for(i = 0; i<argc; i++) {
-		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-	}
-	printf("\n");
+//	int i;
+//	for(i = 0; i<argc; i++) {
+//		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+//	}
+//	printf("\n");
 	return 0;
 }
 
@@ -41,9 +41,13 @@ json DatabaseManager::execute_ddl(sqlite3* db_conn, const char* sql){
 	char* err_msg = 0;
 	json response;
 	int rc;
+	int count = 0;
 	do{
 		rc = sqlite3_exec(db_conn, sql, ddl_callback, 0, &err_msg);
-		printf("DQL - Check for BUSY\n");
+		if(count > 2){
+			printf("[Log] DDL - Check for BUSY\n");
+		}
+		count++;
 	}while(rc == SQLITE_BUSY);
 	
 	response["result_code"] = rc;
@@ -63,7 +67,7 @@ int DatabaseManager::dql_callback(void *ptr, int argc, char **argv, char **azCol
 	table_type* table = static_cast<table_type*>(ptr);
 	vector<pair<string, string> > row;
 	for(i = 0; i<argc; i++){
-		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+//		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
 		pair<string, string> entity(string(azColName[i]), argv[i] ? string(argv[i]) : string("NULL"));
 		row.push_back(entity);
 	}
@@ -77,9 +81,13 @@ json DatabaseManager::execute_dql(sqlite3* db_conn, const char* sql){
 	table_type table;
 	json response;
 	int rc;
+	int count = 0;
 	do{
 		rc = sqlite3_exec(db_conn, sql, dql_callback, &table, &err_msg);
-		printf("DQL - Check for BUSY\n");
+		if(count > 2){
+			printf("[Log] DQL - Check for BUSY\n");
+		}
+		count++;
 	}while(rc == SQLITE_BUSY);
 	response["result_code"] = rc;
 	
@@ -95,7 +103,6 @@ json DatabaseManager::execute_dql(sqlite3* db_conn, const char* sql){
 			for (auto &entity : row){
 				j_row[entity.first.c_str()] = entity.second.c_str();
 			}
-			printf("\n");
 			response["data"].push_back(j_row);
 		}
 	}

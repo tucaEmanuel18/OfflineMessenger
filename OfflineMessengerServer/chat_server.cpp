@@ -64,13 +64,13 @@ void ChatServer::start()
 }
 
 void ChatServer::handle_connection(int client){
+	string prefix = "[Server -> Client " + to_string(client) + "]";
+
 	TCPScanner scanner = TCPScanner();
 	scanner.set_socket_descriptor(client);
 	sqlite3 *db = DatabaseManager::get_connection();
-	CommandProcessor command_processor = CommandProcessor(db);
-	
-	
-    string prefix = "[Server -> Client " + to_string(client) + "]";
+	CommandProcessor command_processor = CommandProcessor(db, prefix);
+
 	bool quit = false;
 	
     while(!quit){
@@ -86,7 +86,7 @@ void ChatServer::handle_connection(int client){
 			break;
 		}
 		
-        printf("%s The received command: %s\n", prefix.c_str(), command_request.c_str());
+//        printf("%s The received command: %s\n", prefix.c_str(), command_request.c_str());
 		
 		// Process request
 		json json_command = json::parse(command_request);
@@ -106,7 +106,7 @@ void ChatServer::handle_connection(int client){
         //Sending the response
         try{
 			scanner.Write(response.dump());
-			printf("%s The following message was send: %s\n", prefix.c_str(), response.dump().c_str());
+//			printf("%s The following message was send: %s\n", prefix.c_str(), response.dump().c_str());
 		}catch(std::ios_base::failure const& e){
 			printf("%s Error at Write() - %s\n", prefix.c_str(), e.what());
 			break;

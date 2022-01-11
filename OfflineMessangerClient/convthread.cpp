@@ -14,23 +14,6 @@ void ConvThread::run(){
         printf("Super!\n");
         fflush(stdout);
 
-        json response = this->server_connection->_get_conv();
-        if(response["status"] == 200){
-            json j_conversations = response["conversations"];
-            for(unsigned long i=0; i < j_conversations.size(); i++){
-                string id_room = j_conversations.at(i).at("id_room").dump().c_str();
-                string id_user = j_conversations.at(i).at("id_user").dump().c_str();
-                string username = j_conversations.at(i).at("username").dump().c_str();
-                string connected = j_conversations.at(i).at("connected").dump().c_str();
-                Conversation new_conversation = Conversation(id_room, id_user, username, connected);
-                conversations.push_back(new_conversation);
-                addConversationButton(new_conversation);
-            }
-
-        }else{
-            QMessageBox::critical(nullptr, "Error", response["message"].dump().c_str());
-            exit();
-        }
         sleep(5);
     }
 }

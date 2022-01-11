@@ -10,7 +10,8 @@ messenger_page::messenger_page(QWidget *parent, ServerConnection *server_connect
     this->server_connection = server_connection;
     this->logged_user = server_connection->get_logged_user();
     ui->usernameLabel->setText(logged_user.username.c_str());
-    refresh_conversations();
+    conv_loop();
+    chat_loop();
 //    new std::thread([this](){this->conv_loop();});
 //    ConvThread *conv_thread = new ConvThread(ui->scrollAreaWidgetContents, server_connection);
 //    printf("[LOG] Am pornit procesul pentru conversatii!\n");
@@ -25,106 +26,92 @@ messenger_page::~messenger_page()
     delete ui;
 }
 
-void messenger_page::on_pushButton_2_clicked()
+void messenger_page::on_refreshBtn_clicked()
 {
     refresh_conversations();
 }
 
-void messenger_page::refresh_conversations(){
-    json response = this->server_connection->_get_conv();
-    if(response["status"] == 200){
-        for(unsigned int i = 0; i < conversation_widgets.size(); i++){
-            delete conversation_widgets.at(i);
-            delete conversations.at(i);
-        }
-        conversations.clear();
-        conversation_widgets.clear();
-        json j_conversations = response["conversations"];
-        for(unsigned long i=0; i < j_conversations.size(); i++){
-            string id_room = j_conversations.at(i).at("id_room").dump().c_str();
-            string id_user = j_conversations.at(i).at("id_user").dump().c_str();
-            string username = j_conversations.at(i).at("username").dump().c_str();
-            string connected = j_conversations.at(i).at("connected").dump().c_str();
-            Conversation* new_conversation = new Conversation(id_room, id_user, username, connected);
-            conversations.push_back(new_conversation);
-            QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(this->ui->scrollAreaWidgetContents->layout());
 
-            QPushButton *button = new QPushButton(username.c_str(), this->ui->scrollAreaWidgetContents);
-            QObject::connect(button, &QPushButton::clicked, this, &messenger_page::on_conversationBtn_clicked);
-            layout->insertWidget(0, button);
-            conversation_widgets.push_back(button);
-        }
+void messenger_page::on_getMessagesTriggered(){
+    QPushButton* w_conversation = qobject_cast<QPushButton*>(sender());
 
-    }else{
-        QMessageBox::critical(nullptr, "Error", response["message"].dump().c_str());
-    }
-}
-
-void messenger_page::on_conversationBtn_clicked(){
-    QPushButton* w_conversation = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
     std::vector<QPushButton*>::iterator it = std::find(conversation_widgets.begin(), conversation_widgets.end(), w_conversation);
     Conversation *conversation = nullptr;
-    if (it != conversation_widgets.end()){
-        int index = std::distance(conversation_widgets.begin(), it);
-        conversation = conversations.at(index);
-    }
-    else{
+    if (it == conversation_widgets.end()){
         QMessageBox::critical(nullptr, "Error", "Something went wrong when trying to find which button was pressed!");
     }
+    else{
+        int index = std::distance(conversation_widgets.begin(), it);
+        conversation = conversations.at(index);
+        selectedConversation = *conversation;
+        this->ui->sendMessageInput->setEnabled(true);
+        refresh_messages();
+    }
+}
+void messenger_page::refresh_conversations(){
+    for(unsigned int i = 0; i < conversation_widgets.size(); i++){
+        delete conversation_widgets.at(i);
+        delete conversations.at(i);
+    }
+    conversations.clear();
+    conversation_widgets.clear();
 
-    json response = this->server_connection->_get_messeges()
-    if(response["status"] == 200){
-        conversations.clear();
-
-        for(auto conversation : conversation_widgets){
-            delete conversation;
-        }
-
-        conversation_widgets.clear();
-        json j_conversations = response["conversations"];
-        for(unsigned long i=0; i < j_conversations.size(); i++){
-            string id_room = j_conversations.at(i).at("id_room").dump().c_str();
-            string id_user = j_conversations.at(i).at("id_user").dump().c_str();
-            string username = j_conversations.at(i).at("username").dump().c_str();
-            string connected = j_conversations.at(i).at("connected").dump().c_str();
-            Conversation new_conversation = Conversation(id_room, id_user, username, connected);
-            conversations.push_back(new_conversation);
+    try {
+        conversations = this->server_connection->_get_conv();
+        for(auto conversation : conversations){
             QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(this->ui->scrollAreaWidgetContents->layout());
-
-            QPushButton *button = new QPushButton(username.c_str(), this->ui->scrollAreaWidgetContents);
-            QObject::connect(button, &QPushButton::clicked, this, &messenger_page::on_conversationBtn_clicked);
+            QPushButton *button = new QPushButton(conversation->participant.username.c_str(), this->ui->scrollAreaWidgetContents);
+            QObject::connect(button, &QPushButton::clicked, this, &messenger_page::on_getMessagesTriggered);
             layout->insertWidget(0, button);
             conversation_widgets.push_back(button);
         }
-
-    }else{
-        QMessageBox::critical(nullptr, "Error", response["message"].dump().c_str());
+    }  catch (std::invalid_argument const& e) {
+        QMessageBox::critical(nullptr, "Error", e.what());
     }
 }
 
-
+void messenger_page::refresh_messages(){
+    if(selectedConversation.isSet()){
+        for(unsigned int i = 0; i < message_widgets.size(); i++){
+            delete message_widgets.at(i);
+            delete messages.at(i);
+        }
+        messages.clear();
+        message_widgets.clear();
+        try{
+            messages = this->server_connection->_get_messages(selectedConversation.id_room);
+            QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(this->ui->chatAreaScroll->layout());
+            for (auto message : messages){
+                QLabel *w_message = new QLabel(message->content.c_str(), this->ui->scrollAreaWidgetContents);
+                layout->insertWidget(1, w_message);
+                message_widgets.push_back(w_message);
+            }
+        }catch(std::domain_error const& e){
+            QMessageBox::critical(nullptr, "Error", e.what());
+        }catch(std::invalid_argument const& e){
+            QMessageBox::warning(nullptr, "Error", e.what());
+        }
+    }
+}
 
 void messenger_page::conv_loop(){
-    while(1){
-        json response = this->server_connection->_get_conv();
-        if(response["status"] == 200){
-            json j_conversations = response["conversations"];
-            for(unsigned long i=0; i < j_conversations.size(); i++){
-                string id_room = j_conversations.at(i).at("id_room").dump().c_str();
-                string id_user = j_conversations.at(i).at("id_user").dump().c_str();
-                string username = j_conversations.at(i).at("username").dump().c_str();
-                string connected = j_conversations.at(i).at("connected").dump().c_str();
-                Conversation new_conversation = Conversation(id_room, id_user, username, connected);
-                conversations.push_back(new_conversation);
-                QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(this->ui->scrollAreaWidgetContents->layout());
+    refresh_conversations();
+    conversation_timer = new QTimer(this);
+    connect(conversation_timer, &QTimer::timeout, this, QOverload<>::of(&messenger_page::refresh_conversations));
+    conversation_timer->start(1000);
+}
 
-                QPushButton *button = new QPushButton(username.c_str(), this->ui->scrollAreaWidgetContents);
-                layout->insertWidget(0, button);
-            }
+void messenger_page::chat_loop(){
+    chat_timer = new QTimer(this);
+    connect(chat_timer, &QTimer::timeout, this, QOverload<>::of(&messenger_page::refresh_messages));
+    chat_timer->start(1000);
+}
 
-        }else{
-            QMessageBox::critical(nullptr, "Error", response["message"].dump().c_str());
-        }
-        sleep(5);
+void messenger_page::on_sendMessageInput_textChanged()
+{
+    if(this->ui->sendMessageInput->toPlainText().isEmpty()){
+        this->ui->sendButton->setEnabled(false);
+    }else{
+        this->ui->sendButton->setEnabled(true);
     }
 }
