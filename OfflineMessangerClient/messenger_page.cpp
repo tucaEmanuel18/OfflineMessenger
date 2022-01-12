@@ -71,21 +71,57 @@ void messenger_page::refresh_conversations(){
 }
 
 void messenger_page::refresh_messages(){
+    printf("Refresh_messages()\n");
+    fflush(stdout);
     if(selectedConversation.isSet()){
+        printf("SelectedConversation is set\n");
+        fflush(stdout);
         for(unsigned int i = 0; i < message_widgets.size(); i++){
             delete message_widgets.at(i);
             delete messages.at(i);
         }
         messages.clear();
         message_widgets.clear();
+        printf("Selected Old Conversations is set\n");
+        fflush(stdout);
         try{
             messages = this->server_connection->_get_messages(selectedConversation.id_room);
+            printf("Print to UI\n");
+            fflush(stdout);
             QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(this->ui->chatAreaScroll->layout());
             for (auto message : messages){
+                printf("Print message with content: %s", message->content.c_str());
+                fflush(stdout);
+
                 QLabel *w_message = new QLabel(message->content.c_str(), this->ui->scrollAreaWidgetContents);
                 layout->insertWidget(1, w_message);
                 message_widgets.push_back(w_message);
             }
+        }catch(std::domain_error const& e){
+            QMessageBox::critical(nullptr, "Error", e.what());
+        }catch(std::invalid_argument const& e){
+            QMessageBox::warning(nullptr, "Error", e.what());
+        }
+    }
+}
+
+void messenger_page::on_sendMessageInput_textChanged()
+{
+    if(this->ui->sendMessageInput->toPlainText().isEmpty()){
+        this->ui->sendButton->setEnabled(false);
+    }else{
+        this->ui->sendButton->setEnabled(true);
+    }
+}
+
+void messenger_page::on_sendButton_clicked()
+{
+    string content = this->ui->sendMessageInput->toPlainText().toStdString();
+    if(!content.empty() && selectedConversation.isSet()){
+        try{
+            server_connection->_send_message(selectedConversation.id_room, content);
+            this->ui->sendMessageInput->setPlainText("");
+//            refresh_messages();
         }catch(std::domain_error const& e){
             QMessageBox::critical(nullptr, "Error", e.what());
         }catch(std::invalid_argument const& e){
@@ -104,14 +140,5 @@ void messenger_page::conv_loop(){
 void messenger_page::chat_loop(){
     chat_timer = new QTimer(this);
     connect(chat_timer, &QTimer::timeout, this, QOverload<>::of(&messenger_page::refresh_messages));
-    chat_timer->start(1000);
-}
-
-void messenger_page::on_sendMessageInput_textChanged()
-{
-    if(this->ui->sendMessageInput->toPlainText().isEmpty()){
-        this->ui->sendButton->setEnabled(false);
-    }else{
-        this->ui->sendButton->setEnabled(true);
-    }
+    chat_timer->start(3000);
 }

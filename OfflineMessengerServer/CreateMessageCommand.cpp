@@ -31,11 +31,14 @@ json CreateMessageCommand::execute(){
 	
 	// prepare query
 	std::stringstream ss;
-	ss << "INSERT INTO messages (id_sender, id_room, content, reply_to) " <<
+	ss << "INSERT INTO messages (id_sender, id_room, content, reply_to, time) " <<
 			"VALUES ('" << auth.c_str() << "', '" << 
 						id_room.c_str() << "', '" << 
 						content.c_str() <<"', '" << 
-						reply_to.c_str() << "');";
+						reply_to.c_str() << "', "
+						"datetime('now')" <<
+						");";
+
 	string create_message_sql = ss.str();
 	printf("Create_message_sql = %s", create_message_sql.c_str());
 	

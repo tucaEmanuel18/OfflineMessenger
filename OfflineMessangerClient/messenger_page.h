@@ -28,6 +28,8 @@ private slots:
     void on_refreshBtn_clicked();
     void on_sendMessageInput_textChanged();
 
+    void on_sendButton_clicked();
+
 private:
     vector<Conversation*> conversations;
     vector<QPushButton*> conversation_widgets;

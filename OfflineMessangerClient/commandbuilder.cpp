@@ -42,3 +42,26 @@ json CommandBuilder::_get_messages(string auth, string id_room){
     };
     return json_message;
 }
+
+json CommandBuilder::_send_message(string auth, string id_room, string content, string reply_to){
+    json json_message;
+    json_message = {
+            {"command", "create_msg"},
+            {"auth", auth.c_str()},
+            {"id_room", id_room.c_str()},
+            {"content", content.c_str()},
+            {"reply_to", reply_to.c_str()}
+    };
+    return json_message;
+}
+
+json CommandBuilder::_send_message(string auth, string id_room, string content){
+    json json_message;
+    json_message = {
+            {"command", "create_msg"},
+            {"auth", auth.c_str()},
+            {"id_room", id_room.c_str()},
+            {"content", content.c_str()}
+    };
+    return json_message;
+}

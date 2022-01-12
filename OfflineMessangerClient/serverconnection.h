@@ -43,6 +43,8 @@ public:
     json _log(string username, string password);
     vector<Conversation*> _get_conv();
     vector<Message*> _get_messages(string id_room);
+    void _send_message(string id_room, string content, string reply_to);
+    void _send_message(string id_room, string content);
 };
 
 #endif // SERVERCONNECTION_H

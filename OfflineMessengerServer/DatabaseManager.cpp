@@ -133,6 +133,7 @@ void DatabaseManager::create_database_structure(sqlite3* db_conn){
 		"id_room INTEGER NOT NULL, "
 		"reply_to INTEGER, "
 		"content TEXT NOT NULL, "
+		"time TEXT NOT NULL, "
 		"FOREIGN KEY(id_sender) REFERENCES users(id_user), "
 		"FOREIGN KEY(id_room) REFERENCES rooms(id_room), "
 		"FOREIGN KEY(reply_to) REFERENCES messages(id_message)"

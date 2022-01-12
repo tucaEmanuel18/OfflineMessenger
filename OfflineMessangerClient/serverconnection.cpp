@@ -106,15 +106,27 @@ vector<Message*> ServerConnection::_get_messages(string id_room){
     if(response["status"] == 200){
         vector<Message*> messages;
         json j_message = response["messages"];
+        printf("j_message = %s\n", j_message.dump().c_str());
+        fflush(stdout);
         for(unsigned long i=0; i < j_message.size(); i++){
             string id_message = remove_quotes(j_message.at(i).at("id_message").dump()).c_str();
             string id_sender = remove_quotes(j_message.at(i).at("id_sender").dump()).c_str();
             string id_room = remove_quotes(j_message.at(i).at("id_room").dump()).c_str();
-            string reply_to = remove_quotes(j_message.at(i).at("reply_to").dump()).c_str();
             string content = remove_quotes(j_message.at(i).at("content").dump()).c_str();
-            string reply_sender = remove_quotes(j_message.at(i).at("reply_sender").dump()).c_str();
-            string reply_content = remove_quotes(j_message.at(i).at("reply_content").dump()).c_str();
-            Message* message = new Message(id_message, id_sender, id_room, content, reply_to, reply_sender, reply_content);
+            printf("Content = %s\n", content.c_str());
+            fflush(stdout);
+
+            string time = remove_quotes(j_message.at(i).at("time").dump()).c_str();
+            string reply_to = remove_quotes(j_message.at(i).at("reply_to").dump()).c_str();
+            Message* message = new Message(id_message, id_sender, id_room, content, time);
+            if(reply_to.compare("NULL") != 0){
+                string reply_sender = remove_quotes(j_message.at(i).at("reply_sender").dump()).c_str();
+                string reply_content = remove_quotes(j_message.at(i).at("reply_content").dump()).c_str();
+                string reply_time = remove_quotes(j_message.at(i).at("reply_time").dump()).c_str();
+                message->setReplyToMessage(reply_to, reply_sender, reply_content, reply_time);
+            }
+            printf("Format message with content: %s\n", message->content.c_str());
+            fflush(stdout);
             messages.push_back(message);
         }
         return messages;
@@ -127,7 +139,25 @@ vector<Message*> ServerConnection::_get_messages(string id_room){
     }
 }
 
+void ServerConnection::_send_message(string id_room, string content, string reply_to){
+    json response = this->send_request(command_builder._send_message(this->me.auth, id_room, content, reply_to).dump());
 
+    if(response["status"] >= 500){
+        throw std::domain_error(response["message"]);
+    }else if(response["status"] >= 400){
+        throw std::invalid_argument(response["message"]);
+    }
+}
+
+void ServerConnection::_send_message(string id_room, string content){
+    json response = this->send_request(command_builder._send_message(this->me.auth, id_room, content).dump());
+
+    if(response["status"] >= 500){
+        throw std::domain_error(response["message"]);
+    }else if(response["status"] >= 400){
+        throw std::invalid_argument(response["message"]);
+    }
+}
 
 string ServerConnection::remove_quotes(string quoted){
     return quoted.substr(1, quoted.length() - 2);
