@@ -14,6 +14,8 @@ SOURCES += \
     conversation.cpp \
     convthread.cpp \
     main.cpp \
+    message.cpp \
+    messagewidget.cpp \
     messenger_page.cpp \
     serverconnection.cpp \
     tcpscanner.cpp \
@@ -24,6 +26,8 @@ HEADERS += \
     connect_page.h \
     conversation.h \
     convthread.h \
+    message.h \
+    messagewidget.h \
     messenger_page.h \
     serverconnection.h \
     tcpscanner.h \
@@ -31,6 +35,7 @@ HEADERS += \
 
 FORMS += \
     connect_page.ui \
+    messagewidget.ui \
     messenger_page.ui
 
 # Default rules for deployment.

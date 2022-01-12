@@ -1,0 +1,53 @@
+
+
+
+
+
+
+CommandBuilder	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/commandbuilder.cpp	/^CommandBuilder::CommandBuilder()$/;"	function	line:3	class:CommandBuilder	signature:()	returns:CommandBuilder :: 
+_register	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/commandbuilder.cpp	/^json CommandBuilder::_register(string username, string password){$/;"	function	line:8	class:CommandBuilder	signature:(string username, string password)	returns:json CommandBuilder :: 
+_log	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/commandbuilder.cpp	/^json CommandBuilder::_log(string username, string password){$/;"	function	line:18	class:CommandBuilder	signature:(string username, string password)	returns:json CommandBuilder :: 
+_get_conv	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/commandbuilder.cpp	/^json CommandBuilder::_get_conv(string auth){$/;"	function	line:27	class:CommandBuilder	signature:(string auth)	returns:json CommandBuilder :: 
+_get_messages	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/commandbuilder.cpp	/^json CommandBuilder::_get_messages(string auth, string id_room){$/;"	function	line:36	class:CommandBuilder	signature:(string auth, string id_room)	returns:json CommandBuilder :: 
+_send_message	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/commandbuilder.cpp	/^json CommandBuilder::_send_message(string auth, string id_room, string content, string reply_to){$/;"	function	line:46	class:CommandBuilder	signature:(string auth, string id_room, string content, string reply_to)	returns:json CommandBuilder :: 
+_send_message	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/commandbuilder.cpp	/^json CommandBuilder::_send_message(string auth, string id_room, string content){$/;"	function	line:58	class:CommandBuilder	signature:(string auth, string id_room, string content)	returns:json CommandBuilder :: 
+
+
+
+
+
+
+ServerConnection	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^ServerConnection::ServerConnection(string addres, unsigned int port)$/;"	function	line:3	class:ServerConnection	signature:(string addres, unsigned int port)	returns:ServerConnection :: 
+ServerConnection	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^ServerConnection::ServerConnection(const ServerConnection &server_connection){$/;"	function	line:12	class:ServerConnection	signature:(const ServerConnection &server_connection)	returns:ServerConnection :: 
+get_logged_user	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^User ServerConnection::get_logged_user(){$/;"	function	line:20	class:ServerConnection	signature:()	returns:User ServerConnection :: 
+run	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^int ServerConnection::run()$/;"	function	line:24	class:ServerConnection	signature:()	returns:int ServerConnection :: 
+stop	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^int ServerConnection::stop(){$/;"	function	line:44	class:ServerConnection	signature:()	returns:int ServerConnection :: 
+send_request	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^json ServerConnection::send_request(string command){$/;"	function	line:48	class:ServerConnection	signature:(string command)	returns:json ServerConnection :: 
+_register	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^json ServerConnection::_register(string username, string password){$/;"	function	line:74	class:ServerConnection	signature:(string username, string password)	returns:json ServerConnection :: 
+_log	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^json ServerConnection::_log(string username, string password){$/;"	function	line:79	class:ServerConnection	signature:(string username, string password)	returns:json ServerConnection :: 
+_get_conv	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^vector<Conversation*> ServerConnection::_get_conv(){$/;"	function	line:87	class:ServerConnection	signature:()	returns:vector <Conversation*> ServerConnection :: 
+_get_messages	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^vector<Message*> ServerConnection::_get_messages(string id_room){$/;"	function	line:104	class:ServerConnection	signature:(string id_room)	returns:vector <Message*> ServerConnection :: 
+_send_message	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^void ServerConnection::_send_message(string id_room, string content){$/;"	function	line:137	class:ServerConnection	signature:(string id_room, string content)	returns:void ServerConnection :: 
+remove_quotes	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.cpp	/^string ServerConnection::remove_quotes(string quoted){$/;"	function	line:147	class:ServerConnection	signature:(string quoted)	returns:string ServerConnection :: 
+SERVERCONNECTION_H	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^#define SERVERCONNECTION_H$/;"	macro	line:2
+json	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^using json = nlohmann::json; $/;"	typedef	line:20
+ServerConnection	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^class ServerConnection$/;"	class	line:22
+address	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    string address;$/;"	member	line:25	class:ServerConnection	access:private
+port	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    unsigned int port;$/;"	member	line:26	class:ServerConnection	access:private
+socket_descriptor	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    int socket_descriptor;$/;"	member	line:27	class:ServerConnection	access:private
+client_socket	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    struct sockaddr_in client_socket;$/;"	member	line:28	class:ServerConnection	typeref:struct:ServerConnection::sockaddr_in	access:private
+scanner	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    TCPScanner scanner;$/;"	member	line:29	class:ServerConnection	access:private
+command_builder	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    CommandBuilder command_builder;$/;"	member	line:30	class:ServerConnection	access:private
+send_request	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    json send_request(string command);$/;"	prototype	line:31	class:ServerConnection	access:private	signature:(string command)	returns:json 
+remove_quotes	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    string remove_quotes(string quoted);$/;"	prototype	line:32	class:ServerConnection	access:private	signature:(string quoted)	returns:string 
+me	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    User me;$/;"	member	line:33	class:ServerConnection	access:private
+ServerConnection	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    ServerConnection(string address, unsigned int port);$/;"	prototype	line:35	class:ServerConnection	access:public	signature:(string address, unsigned int port)
+ServerConnection	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    ServerConnection(const ServerConnection &server_connection);$/;"	prototype	line:36	class:ServerConnection	access:public	signature:(const ServerConnection &server_connection)
+run	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    int run();$/;"	prototype	line:37	class:ServerConnection	access:public	signature:()	returns:int 
+stop	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    int stop();$/;"	prototype	line:38	class:ServerConnection	access:public	signature:()	returns:int 
+get_logged_user	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    User get_logged_user();$/;"	prototype	line:39	class:ServerConnection	access:public	signature:()	returns:User 
+_register	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    json _register(string username, string password);$/;"	prototype	line:42	class:ServerConnection	access:public	signature:(string username, string password)	returns:json 
+_log	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    json _log(string username, string password);$/;"	prototype	line:43	class:ServerConnection	access:public	signature:(string username, string password)	returns:json 
+_get_conv	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    vector<Conversation*> _get_conv();$/;"	prototype	line:44	class:ServerConnection	access:public	signature:()	returns:vector <Conversation*> 
+_get_messages	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    vector<Message*> _get_messages(string id_room);$/;"	prototype	line:45	class:ServerConnection	access:public	signature:(string id_room)	returns:vector <Message*> 
+_send_message	/home/emanuel/Desktop/OfflineMessenger/OfflineMessenger/OfflineMessangerClient/serverconnection.h	/^    void _send_message(string id_room, string content);$/;"	prototype	line:46	class:ServerConnection	access:public	signature:(string id_room, string content)	returns:void 

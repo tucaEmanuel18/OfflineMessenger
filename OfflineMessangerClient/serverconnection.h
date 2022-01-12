@@ -14,6 +14,8 @@
 #include "tcpscanner.h"
 #include "commandbuilder.h"
 #include "user.h"
+#include "message.h"
+#include "conversation.h"
 
 using json = nlohmann::json;
 using namespace std;
@@ -27,6 +29,7 @@ private:
     TCPScanner scanner;
     CommandBuilder command_builder;
     json send_request(string command);
+    string remove_quotes(string quoted);
     User me;
 public:
     ServerConnection(string address, unsigned int port);
@@ -38,7 +41,10 @@ public:
 
     json _register(string username, string password);
     json _log(string username, string password);
-    json _get_conv();
+    vector<Conversation*> _get_conv();
+    vector<Message*> _get_messages(string id_room);
+    void _send_message(string id_room, string content, string reply_to);
+    void _send_message(string id_room, string content);
 };
 
 #endif // SERVERCONNECTION_H

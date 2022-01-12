@@ -1,8 +1,15 @@
 #include "CommandProcessor.h"
 
+CommandProcessor::CommandProcessor(sqlite3* db, string log_prefix)
+{
+	this->db = db;
+	this->log_prefix = log_prefix;
+}
+
 CommandProcessor::CommandProcessor(sqlite3* db)
 {
 	this->db = db;
+	this->log_prefix = "";
 }
 
 CommandProcessor::~CommandProcessor()
@@ -12,7 +19,8 @@ CommandProcessor::~CommandProcessor()
 json CommandProcessor::process(json command){
 	json response;
 	if(command.at("command").get<std::string>().compare("register") == 0){
-		
+		printf("%s Register command\n", log_prefix.c_str());
+
 		if(command.contains("username") && command.contains("password")){
 			try{
 				RegisterCommand register_command(db, command.at("username"), command.at("password"));
@@ -33,6 +41,7 @@ json CommandProcessor::process(json command){
 	}
 	
 	else if(command.at("command").get<std::string>().compare("log") == 0){
+		printf("%s Login command\n", log_prefix.c_str());
 		if(command.contains("username") && command.contains("password")){
 			try{
 				LogInCommand login_command(db, command.at("username"), command.at("password"));
@@ -52,6 +61,8 @@ json CommandProcessor::process(json command){
 	}
 	
 	else if(command.at("command").get<std::string>().compare("create_conv") == 0){
+		printf("%s Create conversation command\n", log_prefix.c_str());
+
 		if(command.contains("auth") && command.contains("friend_username")){
 			try{
 				CreateConversationCommand new_conv_command(db, command.at("auth"), command.at("friend_username"));
@@ -77,6 +88,8 @@ json CommandProcessor::process(json command){
 	}
 	
 	else if(command.at("command").get<std::string>().compare("get_conv") == 0){
+		printf("%s Get conversation command\n", log_prefix.c_str());
+
 		if(command.contains("auth")){
 			try{
 				GetAllConversationsCommand get_conv_command(db, command.at("auth"));
@@ -97,6 +110,8 @@ json CommandProcessor::process(json command){
 	}
 	
 	else if(command.at("command").get<std::string>().compare("create_msg") == 0){
+		printf("%s Create message command\n", log_prefix.c_str());
+
 		if(command.contains("auth")){
 			if(command.contains("id_room")){
 				if(command.contains("content")){
@@ -137,6 +152,8 @@ json CommandProcessor::process(json command){
 	}
 
 	else if(command.at("command").get<std::string>().compare("get_msg") == 0){
+		printf("%s Get messages command\n", log_prefix.c_str());
+
 		if(command.contains("auth") && command.contains("id_room")){
 			try{
 				GetMessagesCommand get_messages_command(db, command.at("auth"), command.at("id_room"));

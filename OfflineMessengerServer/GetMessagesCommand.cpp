@@ -26,9 +26,9 @@ json GetMessagesCommand::execute(){
 	
 	// prepare query
 	std::stringstream ss;
-	ss << "SELECT m.*, r.id_message as id_reply, r.id_sender as reply_sender, r.content as reply_content FROM " <<
+	ss << "SELECT m.*, r.id_sender as reply_sender, r.content as reply_content, r.time as reply_time FROM " <<
 	"(SELECT * FROM messages WHERE id_room='" << id_room.c_str() << "') as m "
-	"LEFT JOIN messages as r on m.reply_to = r.id_message;";
+	"LEFT JOIN messages as r on m.reply_to = r.id_message ORDER BY datetime(m.time) DESC;";
 	string select_messages_sql = ss.str();
 	
 	// execute querry
@@ -39,12 +39,12 @@ json GetMessagesCommand::execute(){
 	if(result == SQLITE_OK){
 		response = {
 					{"status", 200},
-					{"user", data["data"]}
+					{"messages", data["data"]}
 		};
 	}else{
 		response = {
 			{"status", 500},
-			{"message", "[Database Error] - Something went wrong when trying to query for an existing user!"},
+			{"message", "[Database Error] - Something went wrong when trying to query for room messages!"},
 			{"db_message", data["error_message"]}
 		};
 	}
