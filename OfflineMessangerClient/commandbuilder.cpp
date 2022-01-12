@@ -65,3 +65,14 @@ json CommandBuilder::_send_message(string auth, string id_room, string content){
     };
     return json_message;
 }
+
+json CommandBuilder::_create_conv(string auth, string friend_username){
+    json json_message;
+    json_message = {
+            {"command", "create_conv"},
+            {"auth", auth.c_str()},
+            {"friend_username", friend_username}
+    };
+    return json_message;
+}
+

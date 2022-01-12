@@ -10,6 +10,9 @@
     <height>594</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::NoFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -120,6 +123,11 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
            <property name="horizontalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
@@ -132,7 +140,7 @@
               <x>0</x>
               <y>0</y>
               <width>192</width>
-              <height>478</height>
+              <height>502</height>
              </rect>
             </property>
             <property name="minimumSize">
@@ -160,13 +168,6 @@
              </item>
             </layout>
            </widget>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="refreshBtn">
-           <property name="text">
-            <string>Refresh Conversations</string>
-           </property>
           </widget>
          </item>
         </layout>
@@ -205,6 +206,9 @@
              <width>497</width>
              <height>527</height>
             </rect>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>

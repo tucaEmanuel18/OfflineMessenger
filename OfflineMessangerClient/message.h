@@ -18,7 +18,7 @@ public:
     string reply_sender;
     string reply_content;
     string reply_time;
-//    Message *reply_to;
+    string reply_username;
 
     Message(string id_message, string id_sender, string id_room, string content, string time);
     Message();
@@ -27,6 +27,7 @@ public:
 //    void set(string id_message, string id_sender, string id_room, string content, string time);
 //    void setReplyToMessage(Message *reply_to);
     void setReplyToMessage(string reply_to, string reply_sender, string reply_content, string reply_time);
+    void setReplyUsername(string reply_username);
 };
 
 #endif // MESSAGE_H

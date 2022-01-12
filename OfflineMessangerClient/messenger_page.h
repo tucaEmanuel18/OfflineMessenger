@@ -4,6 +4,7 @@
 #include "user.h"
 #include "conversation.h"
 #include "message.h"
+#include "messagewidget.h"
 #include <QWidget>
 #include <QMessageBox>
 #include <QVBoxLayout>
@@ -22,23 +23,26 @@ class messenger_page : public QWidget
 public:
     explicit messenger_page(QWidget *parent = nullptr, ServerConnection *server_connection = nullptr);
     ~messenger_page();
-
+signals:
+    void replySelected(Message message);
 private slots:
     void on_getMessagesTriggered();
-    void on_refreshBtn_clicked();
     void on_sendMessageInput_textChanged();
 
     void on_sendButton_clicked();
+
+    void on_newConvBtn_clicked();
 
 private:
     vector<Conversation*> conversations;
     vector<QPushButton*> conversation_widgets;
     QTimer* conversation_timer;
-
     Conversation selectedConversation;
+
     vector<Message*> messages;
-    vector<QLabel*> message_widgets;
+    vector<messageWidget*> message_widgets;
     QTimer* chat_timer;
+    string selectedMessageId;
 
     User logged_user;
     ServerConnection *server_connection;

@@ -31,7 +31,9 @@ private:
     json send_request(string command);
     string remove_quotes(string quoted);
     User me;
+
 public:
+    string selectedMessageId;
     ServerConnection(string address, unsigned int port);
     ServerConnection(const ServerConnection &server_connection);
     int run();
@@ -45,6 +47,7 @@ public:
     vector<Message*> _get_messages(string id_room);
     void _send_message(string id_room, string content, string reply_to);
     void _send_message(string id_room, string content);
+    void _create_conv(string friend_username);
 };
 
 #endif // SERVERCONNECTION_H

@@ -12,7 +12,6 @@ SOURCES += \
     commandbuilder.cpp \
     connect_page.cpp \
     conversation.cpp \
-    convthread.cpp \
     main.cpp \
     message.cpp \
     messagewidget.cpp \
@@ -25,7 +24,6 @@ HEADERS += \
     commandbuilder.h \
     connect_page.h \
     conversation.h \
-    convthread.h \
     message.h \
     messagewidget.h \
     messenger_page.h \

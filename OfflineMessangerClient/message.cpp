@@ -14,15 +14,6 @@ Message::Message(){
     is_set = false;
 }
 
-//void Message::set(string id_message, string id_sender, string id_room, string content, string time){
-//    this->id_message = id_message;
-//    this->id_sender = id_sender;
-//    this->id_room = id_room;
-//    this->content = content;
-//    this->time = time;
-//    this->is_set = true;
-//}
-
 void Message::setReplyToMessage(string reply_to, string reply_sender, string reply_content, string reply_time){
     if(reply_to.compare("NULL") != 0){
         this->reply_to = reply_to;
@@ -34,9 +25,12 @@ void Message::setReplyToMessage(string reply_to, string reply_sender, string rep
     }
 }
 
+void Message::setReplyUsername(string reply_username){
+    this->reply_username = reply_username;
+}
 
 bool Message::isReply(){
-    return this->reply_to.compare("NULL") != 0;
+    return !reply_to.empty();
 }
 
 bool Message::isSet(){

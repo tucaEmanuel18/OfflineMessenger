@@ -37,7 +37,6 @@ public:
     QWidget *scrollAreaWidgetContents;
     QVBoxLayout *verticalLayout_3;
     QSpacerItem *verticalSpacer;
-    QPushButton *refreshBtn;
     QVBoxLayout *chatWrapper;
     QScrollArea *chatArea;
     QWidget *chatAreaScroll;
@@ -52,6 +51,7 @@ public:
         if (messenger_page->objectName().isEmpty())
             messenger_page->setObjectName(QString::fromUtf8("messenger_page"));
         messenger_page->resize(713, 594);
+        messenger_page->setFocusPolicy(Qt::NoFocus);
         verticalLayout = new QVBoxLayout(messenger_page);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -99,11 +99,14 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(convArea->sizePolicy().hasHeightForWidth());
         convArea->setSizePolicy(sizePolicy2);
+        QFont font;
+        font.setPointSize(10);
+        convArea->setFont(font);
         convArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         convArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 192, 478));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 192, 502));
         scrollAreaWidgetContents->setMinimumSize(QSize(192, 0));
         verticalLayout_3 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
@@ -114,11 +117,6 @@ public:
         convArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_2->addWidget(convArea);
-
-        refreshBtn = new QPushButton(asideWrapper);
-        refreshBtn->setObjectName(QString::fromUtf8("refreshBtn"));
-
-        verticalLayout_2->addWidget(refreshBtn);
 
 
         horizontalLayout->addWidget(asideWrapper);
@@ -136,6 +134,7 @@ public:
         chatAreaScroll = new QWidget();
         chatAreaScroll->setObjectName(QString::fromUtf8("chatAreaScroll"));
         chatAreaScroll->setGeometry(QRect(0, 0, 497, 527));
+        chatAreaScroll->setCursor(QCursor(Qt::PointingHandCursor));
         verticalLayout_4 = new QVBoxLayout(chatAreaScroll);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         verticalSpacer_2 = new QSpacerItem(20, 506, QSizePolicy::Minimum, QSizePolicy::Expanding);
@@ -158,9 +157,9 @@ public:
         sizePolicy3.setHeightForWidth(sendMessageInput->sizePolicy().hasHeightForWidth());
         sendMessageInput->setSizePolicy(sizePolicy3);
         sendMessageInput->setMinimumSize(QSize(0, 30));
-        QFont font;
-        font.setPointSize(11);
-        sendMessageInput->setFont(font);
+        QFont font1;
+        font1.setPointSize(11);
+        sendMessageInput->setFont(font1);
         sendMessageInput->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         sendMessageInput->setPlaceholderText(QString::fromUtf8("Write a new message"));
 
@@ -203,7 +202,6 @@ public:
         asideWrapper->setTitle(QString());
         usernameLabel->setText(QApplication::translate("messenger_page", "User", nullptr));
         newConvBtn->setText(QApplication::translate("messenger_page", "New Conversation", nullptr));
-        refreshBtn->setText(QApplication::translate("messenger_page", "Refresh Conversations", nullptr));
         sendMessageInput->setPlainText(QString());
         sendButton->setText(QApplication::translate("messenger_page", "Send", nullptr));
     } // retranslateUi

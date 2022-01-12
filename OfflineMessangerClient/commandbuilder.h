@@ -15,6 +15,7 @@ public:
     json _get_messages(string auth, string id_room);
     json _send_message(string auth, string id_room, string content, string reply_to);
     json _send_message(string auth, string id_room, string content);
+    json _create_conv(string auth, string friend_username);
 };
 
 #endif // COMMANDBUILDER_H
