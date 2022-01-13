@@ -1,4 +1,5 @@
 SQLITE TUTORIALS:
+    - https://www.sqlitetutorial.net/
     - https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
     - https://www.youtube.com/watch?v=L-hnA82JsEM
     - https://www.sqlite.org/datatype3.html
@@ -6,6 +7,18 @@ SQLITE TUTORIALS:
 JSON library:
     - https://github.com/nlohmann/json
     - https://kezunlin.me/post/f3c3eb8/
+
+Github:
+https://docs.github.com/en/get-started/quickstart/hello-world
+
+Db Browser SQL:
+https://sqlitebrowser.org/
+
+QT Creator:
+https://www.qt.io/download-open-source
+
+CodeLite:
+https://en.wikipedia.org/wiki/CodeLite
 
 Ddatabase design tool:
     - https://www.lucidchart.com/
