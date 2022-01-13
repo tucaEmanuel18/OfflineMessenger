@@ -56,7 +56,7 @@
      <item>
       <widget class="QFrame" name="reply_Wrapper">
        <property name="styleSheet">
-        <string notr="true">background:#323231; color:#f8f7f5</string>
+        <string notr="true">background:#9c9c9c; color:#f8f7f5</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -84,6 +84,11 @@
          <layout class="QHBoxLayout" name="replyCondentBox">
           <item>
            <widget class="QLabel" name="senderLabel">
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Sender: </string>
             </property>
@@ -91,6 +96,11 @@
           </item>
           <item>
            <widget class="QLabel" name="replyContentLabel">
+            <property name="font">
+             <font>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>message</string>
             </property>
@@ -180,6 +190,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <property name="leftMargin">
            <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>3</number>
           </property>
           <item>
            <widget class="QLabel" name="messageLabel">

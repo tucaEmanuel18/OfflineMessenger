@@ -37,11 +37,13 @@ public:
     QWidget *scrollAreaWidgetContents;
     QVBoxLayout *verticalLayout_3;
     QSpacerItem *verticalSpacer;
+    QPushButton *logOutBtn;
     QVBoxLayout *chatWrapper;
     QScrollArea *chatArea;
     QWidget *chatAreaScroll;
     QVBoxLayout *verticalLayout_4;
     QSpacerItem *verticalSpacer_2;
+    QLabel *chatLabel;
     QHBoxLayout *sendMessageWrapper;
     QPlainTextEdit *sendMessageInput;
     QPushButton *sendButton;
@@ -57,6 +59,7 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         groupBox = new QGroupBox(messenger_page);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setStyleSheet(QString::fromUtf8(""));
         horizontalLayout = new QHBoxLayout(groupBox);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -70,6 +73,8 @@ public:
         asideWrapper->setMaximumSize(QSize(200, 16777215));
         asideWrapper->setToolTipDuration(-1);
         asideWrapper->setLayoutDirection(Qt::LeftToRight);
+        asideWrapper->setStyleSheet(QString::fromUtf8("background-color: #f8f7f5"));
+        asideWrapper->setTitle(QString::fromUtf8(""));
         asideWrapper->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         verticalLayout_2 = new QVBoxLayout(asideWrapper);
         verticalLayout_2->setSpacing(0);
@@ -82,6 +87,10 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(usernameLabel->sizePolicy().hasHeightForWidth());
         usernameLabel->setSizePolicy(sizePolicy1);
+        QFont font;
+        font.setPointSize(12);
+        usernameLabel->setFont(font);
+        usernameLabel->setStyleSheet(QString::fromUtf8("color:#69BBAF"));
         usernameLabel->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
         usernameLabel->setIndent(-1);
 
@@ -89,6 +98,7 @@ public:
 
         newConvBtn = new QPushButton(asideWrapper);
         newConvBtn->setObjectName(QString::fromUtf8("newConvBtn"));
+        newConvBtn->setStyleSheet(QString::fromUtf8("background-color:#69BBAF; color:#FFFFFF"));
 
         verticalLayout_2->addWidget(newConvBtn);
 
@@ -99,14 +109,14 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(convArea->sizePolicy().hasHeightForWidth());
         convArea->setSizePolicy(sizePolicy2);
-        QFont font;
-        font.setPointSize(10);
-        convArea->setFont(font);
+        QFont font1;
+        font1.setPointSize(10);
+        convArea->setFont(font1);
         convArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         convArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 192, 502));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 192, 475));
         scrollAreaWidgetContents->setMinimumSize(QSize(192, 0));
         verticalLayout_3 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
@@ -117,6 +127,12 @@ public:
         convArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_2->addWidget(convArea);
+
+        logOutBtn = new QPushButton(asideWrapper);
+        logOutBtn->setObjectName(QString::fromUtf8("logOutBtn"));
+        logOutBtn->setStyleSheet(QString::fromUtf8("background-color:#f74f4f; color:#FFFFFF"));
+
+        verticalLayout_2->addWidget(logOutBtn);
 
 
         horizontalLayout->addWidget(asideWrapper);
@@ -129,6 +145,7 @@ public:
         sizePolicy.setHeightForWidth(chatArea->sizePolicy().hasHeightForWidth());
         chatArea->setSizePolicy(sizePolicy);
         chatArea->setMaximumSize(QSize(500, 800));
+        chatArea->setStyleSheet(QString::fromUtf8("background-color:#f8f7f5"));
         chatArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         chatArea->setWidgetResizable(true);
         chatAreaScroll = new QWidget();
@@ -140,6 +157,16 @@ public:
         verticalSpacer_2 = new QSpacerItem(20, 506, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_4->addItem(verticalSpacer_2);
+
+        chatLabel = new QLabel(chatAreaScroll);
+        chatLabel->setObjectName(QString::fromUtf8("chatLabel"));
+        QFont font2;
+        font2.setPointSize(11);
+        chatLabel->setFont(font2);
+        chatLabel->setStyleSheet(QString::fromUtf8("color:#7d7d7d"));
+        chatLabel->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_4->addWidget(chatLabel);
 
         chatArea->setWidget(chatAreaScroll);
 
@@ -157,9 +184,7 @@ public:
         sizePolicy3.setHeightForWidth(sendMessageInput->sizePolicy().hasHeightForWidth());
         sendMessageInput->setSizePolicy(sizePolicy3);
         sendMessageInput->setMinimumSize(QSize(0, 30));
-        QFont font1;
-        font1.setPointSize(11);
-        sendMessageInput->setFont(font1);
+        sendMessageInput->setFont(font2);
         sendMessageInput->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         sendMessageInput->setPlaceholderText(QString::fromUtf8("Write a new message"));
 
@@ -174,6 +199,7 @@ public:
         sizePolicy4.setHeightForWidth(sendButton->sizePolicy().hasHeightForWidth());
         sendButton->setSizePolicy(sizePolicy4);
         sendButton->setMinimumSize(QSize(0, 30));
+        sendButton->setStyleSheet(QString::fromUtf8("background-color:#ade0d9; color:#7d7d7d"));
 
         sendMessageWrapper->addWidget(sendButton);
 
@@ -199,9 +225,10 @@ public:
     {
         messenger_page->setWindowTitle(QApplication::translate("messenger_page", "Form", nullptr));
         groupBox->setTitle(QString());
-        asideWrapper->setTitle(QString());
         usernameLabel->setText(QApplication::translate("messenger_page", "User", nullptr));
         newConvBtn->setText(QApplication::translate("messenger_page", "New Conversation", nullptr));
+        logOutBtn->setText(QApplication::translate("messenger_page", "Log Out", nullptr));
+        chatLabel->setText(QApplication::translate("messenger_page", "TextLabel", nullptr));
         sendMessageInput->setPlainText(QString());
         sendButton->setText(QApplication::translate("messenger_page", "Send", nullptr));
     } // retranslateUi

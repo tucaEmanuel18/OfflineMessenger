@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QThread>
 #include <QTimer>
+#include "connect_page.h"
 
 namespace Ui {
 class messenger_page;
@@ -32,6 +33,8 @@ private slots:
     void on_sendButton_clicked();
 
     void on_newConvBtn_clicked();
+
+    void on_logOutBtn_clicked();
 
 private:
     vector<Conversation*> conversations;

@@ -13,7 +13,8 @@ class connect_page : public QWidget
     Q_OBJECT
 
 public:
-    explicit connect_page(QWidget *parent = nullptr);
+    explicit connect_page(QWidget *parent = nullptr, bool first_page = true);
+    explicit connect_page(QWidget *parent = nullptr, ServerConnection* server_connection = nullptr, bool first_page = false);
     ~connect_page();
 
 private:
@@ -25,6 +26,8 @@ private:
 private slots:
     void on_loginBtn_clicked();
     void on_registerBtn_clicked();
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // CONNECT_PAGE_H

@@ -68,7 +68,7 @@ public:
         mainWrapper->setObjectName(QString::fromUtf8("mainWrapper"));
         reply_Wrapper = new QFrame(messageWidget);
         reply_Wrapper->setObjectName(QString::fromUtf8("reply_Wrapper"));
-        reply_Wrapper->setStyleSheet(QString::fromUtf8("background:#323231; color:#f8f7f5"));
+        reply_Wrapper->setStyleSheet(QString::fromUtf8("background:#9c9c9c; color:#f8f7f5"));
         reply_Wrapper->setFrameShape(QFrame::StyledPanel);
         reply_Wrapper->setFrameShadow(QFrame::Raised);
         verticalLayout_3 = new QVBoxLayout(reply_Wrapper);
@@ -79,11 +79,17 @@ public:
         replyCondentBox->setObjectName(QString::fromUtf8("replyCondentBox"));
         senderLabel = new QLabel(reply_Wrapper);
         senderLabel->setObjectName(QString::fromUtf8("senderLabel"));
+        QFont font;
+        font.setPointSize(8);
+        senderLabel->setFont(font);
 
         replyCondentBox->addWidget(senderLabel);
 
         replyContentLabel = new QLabel(reply_Wrapper);
         replyContentLabel->setObjectName(QString::fromUtf8("replyContentLabel"));
+        QFont font1;
+        font1.setPointSize(9);
+        replyContentLabel->setFont(font1);
 
         replyCondentBox->addWidget(replyContentLabel);
 
@@ -107,9 +113,9 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(replyDateLabel->sizePolicy().hasHeightForWidth());
         replyDateLabel->setSizePolicy(sizePolicy);
-        QFont font;
-        font.setPointSize(6);
-        replyDateLabel->setFont(font);
+        QFont font2;
+        font2.setPointSize(6);
+        replyDateLabel->setFont(font2);
 
         replyDetailsBox->addWidget(replyDateLabel);
 
@@ -130,7 +136,7 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(10, -1, -1, -1);
+        horizontalLayout_2->setContentsMargins(10, 3, -1, -1);
         messageLabel = new QLabel(messageWrapper);
         messageLabel->setObjectName(QString::fromUtf8("messageLabel"));
         QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Preferred);
@@ -172,9 +178,9 @@ public:
         sizePolicy3.setHeightForWidth(replyBtn->sizePolicy().hasHeightForWidth());
         replyBtn->setSizePolicy(sizePolicy3);
         replyBtn->setMinimumSize(QSize(15, 10));
-        QFont font1;
-        font1.setPointSize(7);
-        replyBtn->setFont(font1);
+        QFont font3;
+        font3.setPointSize(7);
+        replyBtn->setFont(font3);
         replyBtn->setIconSize(QSize(12, 12));
         replyBtn->setFlat(false);
 
@@ -186,7 +192,7 @@ public:
 
         dateLabel = new QLabel(detailsWrapper);
         dateLabel->setObjectName(QString::fromUtf8("dateLabel"));
-        dateLabel->setFont(font);
+        dateLabel->setFont(font2);
 
         horizontalLayout->addWidget(dateLabel);
 

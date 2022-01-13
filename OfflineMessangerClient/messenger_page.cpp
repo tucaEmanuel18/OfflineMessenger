@@ -10,6 +10,8 @@ messenger_page::messenger_page(QWidget *parent, ServerConnection *server_connect
     this->server_connection = server_connection;
     this->logged_user = server_connection->get_logged_user();
     ui->usernameLabel->setText(logged_user.username.c_str());
+    ui->chatLabel->setText("Select a conversation to see messages here!");
+    this->ui->chatArea->verticalScrollBar()->setSliderPosition(this->ui->chatArea->verticalScrollBar()->maximum());
     conv_loop();
     chat_loop();
 }
@@ -17,7 +19,6 @@ messenger_page::messenger_page(QWidget *parent, ServerConnection *server_connect
 messenger_page::~messenger_page()
 {
     delete ui;
-    server_connection->stop();
 }
 
 void messenger_page::on_getMessagesTriggered(){
@@ -29,6 +30,7 @@ void messenger_page::on_getMessagesTriggered(){
         QMessageBox::critical(nullptr, "Error", "Something went wrong when trying to find which button was pressed!");
     }
     else{
+        this->ui->chatLabel->hide();
         server_connection->selectedMessageId = "";
         this->ui->sendMessageInput->setPlainText("");
         int index = std::distance(conversation_widgets.begin(), it);
@@ -58,8 +60,13 @@ void messenger_page::refresh_conversations(){
                 button->setStyleSheet("background-color:#f74f4f; color:#FFFFFF");
             }
 
+            if(conversation->id_room == selectedConversation.id_room){
+                button->setStyleSheet("background-color:#9c9c9c; color:#FFFFFF");
+            }
+
             QObject::connect(button, &QPushButton::clicked, this, &messenger_page::on_getMessagesTriggered);
             layout->insertWidget(0, button);
+            this->ui->convArea->verticalScrollBar()->setSliderPosition(this->ui->convArea->verticalScrollBar()->maximum());
             conversation_widgets.push_back(button);
         }
     }  catch (std::invalid_argument const& e) {
@@ -78,6 +85,10 @@ void messenger_page::refresh_messages(){
         try{
             messages = this->server_connection->_get_messages(selectedConversation.id_room);
             QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(this->ui->chatAreaScroll->layout());
+            if(messages.size() == 0){
+                this->ui->chatLabel->setText("You haven't talked to this person before! You can start now!");
+                this->ui->chatLabel->show();
+            }
             for (auto message : messages){
                 bool is_my_message = message->id_sender == this->server_connection->get_logged_user().auth? true: false;
 
@@ -92,6 +103,7 @@ void messenger_page::refresh_messages(){
                     w_message->setReplyStyle();
                 }
                 layout->insertWidget(1, w_message);
+                this->ui->chatArea->verticalScrollBar()->setSliderPosition(this->ui->chatArea->verticalScrollBar()->maximum());
                 message_widgets.push_back(w_message);
             }
         }catch(std::domain_error const& e){
@@ -106,8 +118,10 @@ void messenger_page::on_sendMessageInput_textChanged()
 {
     if(this->ui->sendMessageInput->toPlainText().isEmpty()){
         this->ui->sendButton->setEnabled(false);
+        this->ui->sendButton->setStyleSheet("background-color:#ade0d9; color:#7d7d7d");
     }else{
         this->ui->sendButton->setEnabled(true);
+        this->ui->sendButton->setStyleSheet("background-color:#69BBAF; color:#323231");
     }
 }
 
@@ -126,19 +140,6 @@ void messenger_page::on_sendButton_clicked()
             QMessageBox::warning(nullptr, "Error", e.what());
         }
     }
-}
-
-void messenger_page::conv_loop(){
-    refresh_conversations();
-    conversation_timer = new QTimer(this);
-    connect(conversation_timer, &QTimer::timeout, this, QOverload<>::of(&messenger_page::refresh_conversations));
-    conversation_timer->start(1000);
-}
-
-void messenger_page::chat_loop(){
-    chat_timer = new QTimer(this);
-    connect(chat_timer, &QTimer::timeout, this, QOverload<>::of(&messenger_page::refresh_messages));
-    chat_timer->start(1000);
 }
 
 void messenger_page::on_newConvBtn_clicked()
@@ -163,6 +164,35 @@ void messenger_page::on_newConvBtn_clicked()
     }
 }
 
+void messenger_page::on_logOutBtn_clicked()
+{
+    try{
+        server_connection->_log_out();
+        this->selectedConversation = Conversation();
+        server_connection->selectedMessageId = "";
+    } catch(std::domain_error const& e){
+        QMessageBox::critical(nullptr, "Error", e.what());
+    }catch(std::invalid_argument const& e){
+        QMessageBox::warning(nullptr, "Error", e.what());
+    }
+    connect_page *w_connect = new connect_page(nullptr, this->server_connection, false);
+    w_connect->show();
+    deleteLater();
+}
+
+void messenger_page::conv_loop(){
+    refresh_conversations();
+    conversation_timer = new QTimer(this);
+    connect(conversation_timer, &QTimer::timeout, this, QOverload<>::of(&messenger_page::refresh_conversations));
+    conversation_timer->start(1000);
+}
+
+void messenger_page::chat_loop(){
+    chat_timer = new QTimer(this);
+    connect(chat_timer, &QTimer::timeout, this, QOverload<>::of(&messenger_page::refresh_messages));
+    chat_timer->start(1000);
+}
+
 void messenger_page::closeEvent(QCloseEvent *event){
        if (event->spontaneous()) {
             server_connection->stop();
@@ -170,3 +200,5 @@ void messenger_page::closeEvent(QCloseEvent *event){
            QWidget::closeEvent(event);
        }
    }
+
+

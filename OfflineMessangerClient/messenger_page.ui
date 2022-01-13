@@ -31,6 +31,9 @@
    </property>
    <item>
     <widget class="QGroupBox" name="groupBox">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="title">
       <string/>
      </property>
@@ -67,8 +70,11 @@
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #f8f7f5</string>
+        </property>
         <property name="title">
-         <string/>
+         <string notr="true"/>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -97,6 +103,14 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:#69BBAF</string>
+           </property>
            <property name="text">
             <string>User</string>
            </property>
@@ -110,6 +124,9 @@
          </item>
          <item>
           <widget class="QPushButton" name="newConvBtn">
+           <property name="styleSheet">
+            <string notr="true">background-color:#69BBAF; color:#FFFFFF</string>
+           </property>
            <property name="text">
             <string>New Conversation</string>
            </property>
@@ -140,7 +157,7 @@
               <x>0</x>
               <y>0</y>
               <width>192</width>
-              <height>502</height>
+              <height>475</height>
              </rect>
             </property>
             <property name="minimumSize">
@@ -170,6 +187,16 @@
            </widget>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="logOutBtn">
+           <property name="styleSheet">
+            <string notr="true">background-color:#f74f4f; color:#FFFFFF</string>
+           </property>
+           <property name="text">
+            <string>Log Out</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -191,6 +218,9 @@
             <width>500</width>
             <height>800</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:#f8f7f5</string>
           </property>
           <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -223,6 +253,24 @@
                </size>
               </property>
              </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="chatLabel">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#7d7d7d</string>
+              </property>
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -282,6 +330,9 @@
               <width>0</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:#ade0d9; color:#7d7d7d</string>
             </property>
             <property name="text">
              <string>Send</string>

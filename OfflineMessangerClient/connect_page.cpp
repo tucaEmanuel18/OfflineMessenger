@@ -1,8 +1,9 @@
 #include "connect_page.h"
 #include "ui_connect_page.h"
 #include <QMessageBox>
+#include "connect_page.h"
 
-connect_page::connect_page(QWidget *parent) :
+connect_page::connect_page(QWidget *parent, bool first_page) :
     QWidget(parent),
     ui(new Ui::connect_page)
 {
@@ -18,10 +19,19 @@ connect_page::connect_page(QWidget *parent) :
     }
 }
 
+connect_page::connect_page(QWidget *parent, ServerConnection* server_connection, bool first_page) :
+    QWidget(parent),
+    ui(new Ui::connect_page)
+{
+    ui->setupUi(this);
+    this->setWindowTitle("OfflineMessenger");
+    server_connection = server_connection;
+}
+
+
 connect_page::~connect_page()
 {
     delete ui;
-    server_connection->stop();
 }
 void connect_page:: on_loginBtn_clicked(){
     printf("[LOG] Login button clicked!\n");
@@ -33,7 +43,7 @@ void connect_page:: on_loginBtn_clicked(){
     if(response.at("status") == 200){
         messenger_page *messengerWidget = new messenger_page(nullptr, this->server_connection);
         messengerWidget->show();
-        hide();
+        deleteLater();
     }else{
         if(response["status"] == 500){
                 QMessageBox::critical(this, "Error", response["message"].dump().c_str());
@@ -58,4 +68,12 @@ void connect_page::on_registerBtn_clicked(){
         QMessageBox::warning(this, "Warning", response["message"].dump().c_str());
     }
 }
+
+void connect_page::closeEvent(QCloseEvent *event){
+       if (event->spontaneous()) {
+            server_connection->stop();
+       } else {
+           QWidget::closeEvent(event);
+       }
+   }
 

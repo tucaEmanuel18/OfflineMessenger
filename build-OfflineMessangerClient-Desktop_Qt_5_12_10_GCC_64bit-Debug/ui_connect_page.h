@@ -49,6 +49,7 @@ public:
         if (connect_page->objectName().isEmpty())
             connect_page->setObjectName(QString::fromUtf8("connect_page"));
         connect_page->resize(700, 369);
+        connect_page->setStyleSheet(QString::fromUtf8("background-color:#f8f7f5"));
         horizontalLayout = new QHBoxLayout(connect_page);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalSpacer = new QSpacerItem(80, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
@@ -68,6 +69,7 @@ public:
         QFont font;
         font.setPointSize(20);
         titleLabel->setFont(font);
+        titleLabel->setStyleSheet(QString::fromUtf8("color:#69bbaf"));
 
         titleBox->addWidget(titleLabel);
 
@@ -85,11 +87,16 @@ public:
         QFont font1;
         font1.setPointSize(14);
         usernameLabel->setFont(font1);
+        usernameLabel->setStyleSheet(QString::fromUtf8("color:#69BBAF"));
 
         usernameField->addWidget(usernameLabel);
 
         usernameInput = new QLineEdit(connect_page);
         usernameInput->setObjectName(QString::fromUtf8("usernameInput"));
+        QFont font2;
+        font2.setPointSize(12);
+        usernameInput->setFont(font2);
+        usernameInput->setStyleSheet(QString::fromUtf8("background-color:white; color:#69BBAF"));
 
         usernameField->addWidget(usernameInput);
 
@@ -101,11 +108,15 @@ public:
         passwordLabel = new QLabel(connect_page);
         passwordLabel->setObjectName(QString::fromUtf8("passwordLabel"));
         passwordLabel->setFont(font1);
+        passwordLabel->setStyleSheet(QString::fromUtf8("color:#69BBAF"));
 
         passwordField->addWidget(passwordLabel);
 
         passwordInput = new QLineEdit(connect_page);
         passwordInput->setObjectName(QString::fromUtf8("passwordInput"));
+        passwordInput->setFont(font2);
+        passwordInput->setStyleSheet(QString::fromUtf8("background-color:white; color:#69BBAF"));
+        passwordInput->setEchoMode(QLineEdit::Password);
 
         passwordField->addWidget(passwordInput);
 
@@ -120,13 +131,17 @@ public:
         btnBox->setObjectName(QString::fromUtf8("btnBox"));
         loginBtn = new QPushButton(connect_page);
         loginBtn->setObjectName(QString::fromUtf8("loginBtn"));
+        loginBtn->setFont(font2);
         loginBtn->setCursor(QCursor(Qt::PointingHandCursor));
+        loginBtn->setStyleSheet(QString::fromUtf8("background-color:#69BBAF; color:#FFFFFF"));
 
         btnBox->addWidget(loginBtn);
 
         registerBtn = new QPushButton(connect_page);
         registerBtn->setObjectName(QString::fromUtf8("registerBtn"));
+        registerBtn->setFont(font2);
         registerBtn->setCursor(QCursor(Qt::PointingHandCursor));
+        registerBtn->setStyleSheet(QString::fromUtf8("background-color:#f74f4f; color:#ffffff"));
 
         btnBox->addWidget(registerBtn);
 
