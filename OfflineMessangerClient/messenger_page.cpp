@@ -37,6 +37,7 @@ void messenger_page::on_getMessagesTriggered(){
         conversation = conversations.at(index);
         selectedConversation = *conversation;
         this->ui->sendMessageInput->setEnabled(true);
+        refresh_conversations();
         refresh_messages();
     }
 }
