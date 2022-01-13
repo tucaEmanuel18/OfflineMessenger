@@ -16,6 +16,8 @@ public:
     json _send_message(string auth, string id_room, string content, string reply_to);
     json _send_message(string auth, string id_room, string content);
     json _create_conv(string auth, string friend_username);
+    json _log_out(string auth);
+    json _quit();
 };
 
 #endif // COMMANDBUILDER_H

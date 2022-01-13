@@ -99,6 +99,7 @@ void ChatServer::handle_connection(int client){
 				{"status", 200},
 				{"message", "Server will close this connection!"}
 			};
+			printf("%s Connection closed!", prefix);
 		}else{
 			response = command_processor.process(json_command);
 		}

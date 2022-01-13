@@ -48,6 +48,8 @@ public:
     void _send_message(string id_room, string content, string reply_to);
     void _send_message(string id_room, string content);
     void _create_conv(string friend_username);
+    void _log_out();
+    void _quit();
 };
 
 #endif // SERVERCONNECTION_H

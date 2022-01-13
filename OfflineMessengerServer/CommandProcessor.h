@@ -6,6 +6,7 @@
 #include <GetAllConversationsCommand.h>
 #include <CreateMessageCommand.h>
 #include <GetMessagesCommand.h>
+#include <LogOutCommand.h>
 #include <sqlite3.h>
 #include <string>
 

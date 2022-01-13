@@ -42,6 +42,8 @@ int ServerConnection::run()
 
 
 int ServerConnection::stop(){
+    _log_out();
+    _quit();
     return close(socket_descriptor) == -1 ? errno : 0;
 }
 
@@ -169,6 +171,22 @@ void ServerConnection::_create_conv(string friend_username){
         throw std::invalid_argument(response["message"]);
     }
 }
+
+void ServerConnection::_log_out(){
+    if(this->me.isSet()){
+        json response = this->send_request(command_builder._log_out(this->me.auth).dump());
+        if(response["status"] >= 500){
+            throw std::domain_error(response["message"]);
+        }else if(response["status"] >= 400){
+            throw std::invalid_argument(response["message"]);
+        }
+    }
+}
+
+void ServerConnection::_quit(){
+    this->send_request(command_builder._quit().dump());
+}
+
 
 string ServerConnection::remove_quotes(string quoted){
     return quoted.substr(1, quoted.length() - 2);

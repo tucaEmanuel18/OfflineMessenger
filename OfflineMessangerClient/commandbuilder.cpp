@@ -76,3 +76,20 @@ json CommandBuilder::_create_conv(string auth, string friend_username){
     return json_message;
 }
 
+json CommandBuilder::_log_out(string auth){
+    json json_message;
+    json_message = {
+            {"command", "log_out"},
+            {"auth", auth.c_str()}
+    };
+    return json_message;
+}
+
+json CommandBuilder::_quit(){
+    json json_message;
+    json_message = {
+            {"command", "quit"}
+    };
+    return json_message;
+}
+

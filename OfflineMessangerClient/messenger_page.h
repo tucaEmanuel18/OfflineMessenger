@@ -51,6 +51,9 @@ private:
     void chat_loop();
     void refresh_conversations();
     void refresh_messages();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MESSENGER_PAGE_H

@@ -17,6 +17,7 @@ messenger_page::messenger_page(QWidget *parent, ServerConnection *server_connect
 messenger_page::~messenger_page()
 {
     delete ui;
+    server_connection->stop();
 }
 
 void messenger_page::on_getMessagesTriggered(){
@@ -50,6 +51,13 @@ void messenger_page::refresh_conversations(){
         for(auto conversation : conversations){
             QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(this->ui->scrollAreaWidgetContents->layout());
             QPushButton *button = new QPushButton(conversation->participant.username.c_str(), this->ui->scrollAreaWidgetContents);
+
+            if(conversation->participant.connected.compare("1") == 0){
+                button->setStyleSheet("background-color:#69BBAF; color:#FFFFFF");
+            }else{
+                button->setStyleSheet("background-color:#f74f4f; color:#FFFFFF");
+            }
+
             QObject::connect(button, &QPushButton::clicked, this, &messenger_page::on_getMessagesTriggered);
             layout->insertWidget(0, button);
             conversation_widgets.push_back(button);
@@ -154,3 +162,11 @@ void messenger_page::on_newConvBtn_clicked()
         }
     }
 }
+
+void messenger_page::closeEvent(QCloseEvent *event){
+       if (event->spontaneous()) {
+            server_connection->stop();
+       } else {
+           QWidget::closeEvent(event);
+       }
+   }

@@ -176,7 +176,30 @@ json CommandProcessor::process(json command){
 				{"message", "This request should have auth and a id_room in payload!"}
 			};
 		}
-	}else{
+	}
+	
+	else if(command.at("command").get<std::string>().compare("log_out") == 0){
+		printf("%s Log out user!\n", log_prefix.c_str());
+
+		if(command.contains("auth")){
+			try{
+				LogOutCommand log_out_command(db, command.at("auth"));
+				response = log_out_command.execute();
+			}catch(std::domain_error const& e){
+				response = {
+					{"status", 401},
+					{"message", e.what()}
+				};
+			}
+		}else{
+			response = {
+				{"status", 400},
+				{"message", "This request should have auth in payload!"}
+			};
+		}
+	}
+	
+	else{
 		response = {
 			{"status", 405},
 			{"message", "Unknown command!"}
